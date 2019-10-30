@@ -103,7 +103,7 @@
             </MenuItem>
         </Menu>
         <TextBlock Grid.Row="2" Grid.Column="1" FontSize="36" TextAlignment="Center" VerticalAlignment="Center">
-                Sistema de Ateliex
+                Sistema de Atelie
         </TextBlock>
         <StackPanel>
             <!--<Button

@@ -5,13 +5,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Ateliex.Windows"
+        xmlns:models="clr-namespace:Ateliex.Models;assembly=Ateliex.Models"
         mc:Ignorable="d"
         Title="Modelos" Height="795" Width="1193" Loaded="Window_Loaded"
         xml:lang="pt-BR"
     >
     <Window.Resources>
         <ResourceDictionary>
-            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type modelos:ModeloViewModel}, CreateList=True}"/>
+            <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type models:Modelo}, CreateList=True}"/>
             <CollectionViewSource x:Key="recursosViewSource" Source="{Binding Recursos, Source={StaticResource modelosViewSource}}"/>
         </ResourceDictionary>
     </Window.Resources>
