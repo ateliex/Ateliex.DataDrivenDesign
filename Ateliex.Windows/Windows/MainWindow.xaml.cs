@@ -1,8 +1,6 @@
-﻿using Ateliex.EntityFrameworkCore;
-using Ateliex.Services.Local;
+﻿using Ateliex.Models;
+using Ateliex.Services;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleInjector;
-using SimpleInjector.Lifestyles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

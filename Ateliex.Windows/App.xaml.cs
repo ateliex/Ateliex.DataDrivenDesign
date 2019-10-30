@@ -1,4 +1,6 @@
-﻿using Ateliex.EntityFrameworkCore;
+﻿using Ateliex.Models;
+using Ateliex.Services;
+using Ateliex.Windows;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +22,10 @@ namespace Ateliex
     /// </summary>
     public partial class App : Application
     {
+        public IServiceProvider ServiceProvider { get; private set; }
+
+        public IConfiguration Configuration { get; private set; }
+
         public App()
         {
             var culture = CultureInfo.CreateSpecificCulture("pt-BR");
@@ -33,31 +39,49 @@ namespace Ateliex
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            Configuration = builder.Build();
+
+            var serviceCollection = new ServiceCollection();
+
+            ConfigureServices(serviceCollection);
+
+            ServiceProvider = serviceCollection.BuildServiceProvider();
+
+
             InitializeDatabase();
+
+
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+
+            mainWindow.Show();
         }
 
-        //private void ConfigureServices(IServiceCollection services)
-        //{
-        //    //services.AddDbContext<AteliexDbContext>(options =>
-        //    //    //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-        //    //    options.UseSqlite(@"Data Source=Ateliex.db"));
+        private void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<AteliexDbContext>(options =>
+                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(@"Data Source=Ateliex.db"));
 
-        //    //services.AddTransient(typeof(MainWindow));
+            services.AddTransient(typeof(MainWindow));
 
-        //    //services.AddTransient(typeof(ModelosLocalService));
+            services.AddTransient(typeof(ModelosLocalService));
 
-        //    //services.AddTransient(typeof(ModelosDbService));
+            services.AddTransient(typeof(ModelosDbService));
 
-        //    //services.AddTransient(typeof(ModelosWindow));
+            services.AddTransient(typeof(ModelosWindow));
 
-        //    //services.AddTransient(typeof(ConsultaDeModelosWindow));
+            //services.AddTransient(typeof(ConsultaDeModelosWindow));
 
-        //    //services.AddTransient(typeof(PlanosComerciaisWindow));
+            //services.AddTransient(typeof(PlanosComerciaisWindow));
 
-        //    //services.AddTransient(typeof(PlanosComerciaisLocalService));
+            //services.AddTransient(typeof(PlanosComerciaisLocalService));
 
-        //    //services.AddTransient(typeof(PlanosComerciaisDbService));
-        //}
+            //services.AddTransient(typeof(PlanosComerciaisDbService));
+        }
 
         //private void InitializeContainer()
         //{
@@ -72,8 +96,12 @@ namespace Ateliex
 
         private void InitializeDatabase()
         {
-            using (var dbContext = new AteliexDbContext())
+            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
+
+            using (var serviceScope = serviceScopeFactory.CreateScope())
             {
+                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
+
                 dbContext.Database.EnsureCreated();
 
                 dbContext.Database.Migrate();
