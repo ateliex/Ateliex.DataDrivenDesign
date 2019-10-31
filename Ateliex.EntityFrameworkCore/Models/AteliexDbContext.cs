@@ -36,6 +36,9 @@ namespace Ateliex.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Recurso>()
+                .HasKey(p => new { p.ModeloCodigo, p.Descricao });
+
             modelBuilder.Entity<Custo>()
                 .HasKey(p => new { p.PlanoComercialCodigo, p.Descricao });
 

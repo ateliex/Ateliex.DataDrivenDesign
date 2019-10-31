@@ -88,34 +88,6 @@ namespace Ateliex.Models
 
         public virtual ICollection<ItemDePlanoComercial> Itens { get; set; }
 
-        public PlanoComercial(string id, string nome, decimal rendaBrutaMensal)
-        {
-            Codigo = id;
-
-            Nome = nome;
-
-            RendaBrutaMensal = rendaBrutaMensal;
-
-            Custos = new HashSet<Custo>();
-
-            Itens = new HashSet<ItemDePlanoComercial>();
-        }
-
-        public void DefineNome(string nome)
-        {
-            Nome = nome;
-        }
-
-        public void DefineData(DateTime data)
-        {
-            Data = data;
-        }
-
-        public void DefineRendaBrutaMensal(decimal rendaBrutaMensal)
-        {
-            RendaBrutaMensal = rendaBrutaMensal;
-        }
-
         public PlanoComercial()
         {
             Custos = new HashSet<Custo>();
@@ -123,43 +95,11 @@ namespace Ateliex.Models
             Itens = new HashSet<ItemDePlanoComercial>();
         }
 
-        public Custo AdicionaCusto(TipoDeCusto tipo, string descricao)
-        {
-            var model = new Custo(this, tipo, descricao);
-
-            Custos.Add(model);
-
-            return model;
-        }
-
-        public void RemoveCusto(Custo custo)
-        {
-            Custos.Remove(custo);
-        }
-
         public bool ExisteItemDoModelo(Modelo modelo)
         {
             var existe = Itens.Any(p => p.Modelo.Codigo == modelo.Codigo);
 
             return existe;
-        }
-
-        public ItemDePlanoComercial AdicionaItem(Modelo modelo)
-        {
-            var max = Itens.Count;
-
-            var nextId = max++;
-
-            var model = new ItemDePlanoComercial(this, nextId, modelo);
-
-            Itens.Add(model);
-
-            return model;
-        }
-
-        public void RemoveItem(ItemDePlanoComercial item)
-        {
-            Itens.Remove(item);
         }
     }
 
@@ -226,35 +166,6 @@ namespace Ateliex.Models
                     throw new InvalidCastException();
                 }
             }
-        }
-
-        public Custo(PlanoComercial planoComercial, TipoDeCusto tipo, string descricao)
-        {
-            PlanoComercial = planoComercial;
-
-            Tipo = tipo;
-
-            Descricao = descricao;
-        }
-
-        public void DefineTipo(TipoDeCusto tipo)
-        {
-            Tipo = tipo;
-        }
-
-        public void DefineDescricao(string descricao)
-        {
-            Descricao = descricao;
-        }
-
-        public void DefineValor(decimal valor)
-        {
-            Valor = valor;
-        }
-
-        public void DefinePercentual(decimal percentual)
-        {
-            Percentual = percentual;
         }
 
         public Custo()
@@ -341,44 +252,6 @@ namespace Ateliex.Models
         }
 
         public decimal? PrecoDeVendaDesejado { get; set; }
-
-        public ItemDePlanoComercial(PlanoComercial planoComercial, int id, Modelo modelo)
-        {
-            Id = id;
-
-            PlanoComercial = planoComercial;
-
-            Modelo = modelo;
-        }
-
-        public ItemDePlanoComercial(decimal margem)
-        {
-            Margem = margem;
-        }
-
-        public void DefineMargem(decimal margem)
-        {
-            Margem = margem;
-        }
-
-        public void DefineMargemPercentual(decimal margemPercentual)
-        {
-            MargemPercentual = margemPercentual;
-        }
-
-        public void SugereTaxaDeMarcacao(decimal? taxaDeMarcacaoSugerida)
-        {
-            TaxaDeMarcacaoSugerida = taxaDeMarcacaoSugerida;
-        }
-
-        public void DefinePrecoDeVendaDesejado(decimal valor)
-        {
-            PrecoDeVendaDesejado = valor;
-
-            var taxaDeMarcacaoSugerida = PrecoDeVendaDesejado / CustoDeProducao;
-
-            SugereTaxaDeMarcacao(taxaDeMarcacaoSugerida);
-        }
 
         public ItemDePlanoComercial()
         {
