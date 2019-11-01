@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Services
 {
-    public class ModelosDbService
+    public class ModelosDbService : IModelosService
     {
         private readonly AteliexDbContext db;
 
@@ -109,6 +109,31 @@ namespace Ateliex.Services
 
                 throw new ApplicationException("Erro em Planos Comerciais.", ex);
             }
+        }
+
+        public Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Modelo CadastraModelo(Modelo modelo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Recurso AdicionaRecursoDeModelo(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRecursoDeModelo(string codigo, string descricao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveModelo(string codigo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

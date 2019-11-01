@@ -63,12 +63,11 @@ namespace Ateliex
         private void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
-                //options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 options.UseSqlite(@"Data Source=Ateliex.db"));
 
             services.AddTransient(typeof(MainWindow));
 
-            services.AddTransient(typeof(ModelosLocalService));
+            services.AddTransient(typeof(IModelosService), typeof(ModelosLocalService));
 
             services.AddTransient(typeof(ModelosDbService));
 

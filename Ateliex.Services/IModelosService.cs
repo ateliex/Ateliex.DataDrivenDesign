@@ -2,11 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Ateliex.Services
 {
     public interface IModelosService
     {
+        Task<IEnumerable<Modelo>> ObtemObservavelDeModelos();
+
         Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
 
         Modelo CadastraModelo(Modelo modelo);

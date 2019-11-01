@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ateliex.Services
 {
-    public class ModelosLocalService
+    public class ModelosLocalService : IModelosService
     {
         private readonly ModelosDbService db;
 
@@ -15,14 +15,11 @@ namespace Ateliex.Services
             this.db = db;
         }
 
-        public async Task SaveChanges()
-        {
-            await db.SaveChanges();
-        }
-
         public async Task Add(Modelo modelo)
         {
             await db.Add(modelo);
+
+            await db.SaveChanges();
         }
 
         public async Task Update(Modelo modelo)
@@ -47,6 +44,31 @@ namespace Ateliex.Services
             var result = await db.ObtemObservavelDeModelos();
 
             return result; //.Cast<Modelo[]>();
+        }
+
+        public Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Modelo CadastraModelo(Modelo modelo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Recurso AdicionaRecursoDeModelo(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveRecursoDeModelo(string codigo, string descricao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveModelo(string codigo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

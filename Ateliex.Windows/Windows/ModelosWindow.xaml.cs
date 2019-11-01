@@ -21,19 +21,19 @@ namespace Ateliex.Windows
     /// </summary>
     public partial class ModelosWindow
     {
-        private readonly ModelosLocalService modelosLocalService;
+        private readonly IModelosService modelosService;
 
         //private readonly IConsultaDeModelos consultaDeModelos;
 
         //private readonly IPlanejamentoComercial planejamentoComercial;
 
         public ModelosWindow(
-            ModelosLocalService modelosLocalService
+            ModelosLocalService modelosService
         //IConsultaDeModelos consultaDeModelos,
         //IPlanejamentoComercial planejamentoComercial
         )
         {
-            this.modelosLocalService = modelosLocalService;
+            this.modelosService = modelosService;
 
             //this.consultaDeModelos = consultaDeModelos;
 
@@ -44,7 +44,7 @@ namespace Ateliex.Windows
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosLocalService.ObtemObservavelDeModelos();
+            var modelos = await modelosService.ObtemObservavelDeModelos();
 
             //var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
 
