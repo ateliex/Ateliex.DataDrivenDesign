@@ -25,8 +25,6 @@ namespace Ateliex.Models
         {
             base.OnConfiguring(optionsBuilder);
 
-            //optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-
             //optionsBuilder
             //    //.UseLazyLoadingProxies()
             //    

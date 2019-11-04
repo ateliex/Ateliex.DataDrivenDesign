@@ -24,11 +24,9 @@ namespace Ateliex.Controllers
         [HttpGet]
         public async Task<Modelo[]> Get()
         {
-            var parametros = new ParametrosDeConsultaDeModelos();
+            var modelos = await modelosService.ObtemModelosAsync();
 
-            var resposta = await modelosService.ConsultaModelosAsync(parametros);
-
-            return resposta;
+            return modelos;
         }
 
         // GET: api/Modelos/5
