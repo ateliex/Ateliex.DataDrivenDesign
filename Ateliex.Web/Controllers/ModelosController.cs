@@ -22,11 +22,11 @@ namespace Ateliex.Controllers
 
         // GET: api/Modelos
         [HttpGet]
-        public Modelo[] Get()
+        public async Task<Modelo[]> Get()
         {
             var parametros = new ParametrosDeConsultaDeModelos();
 
-            var resposta = modelosService.ConsultaModelos(parametros);
+            var resposta = await modelosService.ConsultaModelosAsync(parametros);
 
             return resposta;
         }
@@ -40,9 +40,9 @@ namespace Ateliex.Controllers
 
         // POST: api/Modelos
         [HttpPost]
-        public Modelo Post(Modelo modelo)
+        public async Task<Modelo> Post(Modelo modelo)
         {
-            var resposta = modelosService.CadastraModelo(modelo);
+            var resposta = await modelosService.CadastraModeloAsync(modelo);
 
             return resposta;
         }
@@ -58,7 +58,7 @@ namespace Ateliex.Controllers
         [HttpDelete("{codigo}")]
         public void Delete(string codigo)
         {
-            modelosService.RemoveModelo(codigo);
+            modelosService.RemoveModeloAsync(codigo);
         }
     }
 }

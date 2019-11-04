@@ -23,17 +23,19 @@ namespace Ateliex.Windows
     /// </summary>
     public partial class MainWindow
     {
+        private readonly IModelosService modelosService;
+
         //readonly InfrastructurePackage infrastructurePackage;
 
-        //readonly Container container;
+        public IServiceProvider ServiceProvider { get; private set; }
 
-        private readonly AteliexDbContext db = new AteliexDbContext();
+        //private readonly AteliexDbContext db = new AteliexDbContext();
 
-        public MainWindow()
+        public MainWindow(IServiceProvider serviceProvider)
         {
             InitializeComponent();
 
-            //ServiceProvider = serviceProvider;
+            ServiceProvider = serviceProvider;
 
             //infrastructurePackage = new InfrastructurePackage();
 
@@ -76,13 +78,13 @@ namespace Ateliex.Windows
 
         private void CadastroDeModelosMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            var modelosLocalService = new ModelosLocalService(new ModelosDbService(db)); //container.GetInstance<ModelosLocalService>();
+            //var modelosLocalService = new ModelosLocalService(new ModelosDbService(db)); //container.GetInstance<ModelosLocalService>();
 
-            var modelosWindow = new ModelosWindow(
-                modelosLocalService
-            );
+            //var modelosWindow = new ModelosWindow(
+            //    modelosLocalService
+            //);
 
-            //var modelosWindow = ServiceProvider.GetRequiredService<ModelosWindow>();
+            var modelosWindow = ServiceProvider.GetRequiredService<ModelosWindow>();
 
             modelosWindow.Show();
         }
@@ -111,7 +113,7 @@ namespace Ateliex.Windows
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)
         {
-            db.Dispose();
+            //db.Dispose();
         }
     }
 }

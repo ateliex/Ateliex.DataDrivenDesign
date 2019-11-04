@@ -17,6 +17,26 @@ namespace Ateliex.Services
             this.db = db;
         }
 
+        public Task<Modelo> CadastraModeloAsync(Modelo modelo)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Recurso> AdicionaRecursoDeModeloAsync(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveRecursoDeModeloAsync(string codigo, string descricao)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveModeloAsync(string codigo)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task SaveChanges()
         {
             var items = db.ChangeTracker.Entries<Recurso>().ToArray();
@@ -91,13 +111,13 @@ namespace Ateliex.Services
             }
         }
 
-        public async Task<IEnumerable<Modelo>> ObtemObservavelDeModelos()
+        public async Task<Modelo[]> ObtemModelosAsync()
         {
             try
             {
                 var planosComerciais = await db.Modelos
                     .Include(p => p.Recursos)
-                    .ToListAsync();
+                    .ToArrayAsync();
 
                 //var observable = planosComerciais.ToObservable();
 
@@ -107,31 +127,11 @@ namespace Ateliex.Services
             {
                 // TODO: Tratar erros de persistência aqui.
 
-                throw new ApplicationException("Erro em Planos Comerciais.", ex);
+                throw new ApplicationException("Erro ao obter modelos.", ex);
             }
         }
 
-        public Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Modelo CadastraModelo(Modelo modelo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Recurso AdicionaRecursoDeModelo(Recurso recurso)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveRecursoDeModelo(string codigo, string descricao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveModelo(string codigo)
+        public Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)
         {
             throw new NotImplementedException();
         }

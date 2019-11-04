@@ -23,28 +23,16 @@ namespace Ateliex.Windows
     {
         private readonly IModelosService modelosService;
 
-        //private readonly IConsultaDeModelos consultaDeModelos;
-
-        //private readonly IPlanejamentoComercial planejamentoComercial;
-
-        public ModelosWindow(
-            ModelosLocalService modelosService
-        //IConsultaDeModelos consultaDeModelos,
-        //IPlanejamentoComercial planejamentoComercial
-        )
+        public ModelosWindow(IModelosService modelosService)
         {
             this.modelosService = modelosService;
-
-            //this.consultaDeModelos = consultaDeModelos;
-
-            //this.planejamentoComercial = planejamentoComercial;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosService.ObtemObservavelDeModelos();
+            var modelos = await modelosService.ObtemModelosAsync();
 
             //var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
 

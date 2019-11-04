@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ateliex.Models\Ateliex.Models.csproj" />
     <ProjectReference Include="..\Ateliex.Services\Ateliex.Services.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />

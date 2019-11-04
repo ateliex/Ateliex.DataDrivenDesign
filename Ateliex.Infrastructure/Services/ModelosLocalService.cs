@@ -39,34 +39,34 @@ namespace Ateliex.Services
             return result;
         }
 
-        public async Task<IEnumerable<Modelo>> ObtemObservavelDeModelos()
+        public async Task<Modelo[]> ObtemModelosAsync()
         {
-            var result = await db.ObtemObservavelDeModelos();
+            var result = await db.ObtemModelosAsync();
 
             return result; //.Cast<Modelo[]>();
         }
 
-        public Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros)
+        public Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)
         {
             throw new NotImplementedException();
         }
 
-        public Modelo CadastraModelo(Modelo modelo)
+        public Task<Modelo> CadastraModeloAsync(Modelo modelo)
         {
             throw new NotImplementedException();
         }
 
-        public Recurso AdicionaRecursoDeModelo(Recurso recurso)
+        public Task<Recurso> AdicionaRecursoDeModeloAsync(Recurso recurso)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveRecursoDeModelo(string codigo, string descricao)
+        public Task RemoveRecursoDeModeloAsync(string codigo, string descricao)
         {
             throw new NotImplementedException();
         }
 
-        public void RemoveModelo(string codigo)
+        public Task RemoveModeloAsync(string codigo)
         {
             throw new NotImplementedException();
         }

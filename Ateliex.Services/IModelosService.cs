@@ -8,17 +8,17 @@ namespace Ateliex.Services
 {
     public interface IModelosService
     {
-        Task<IEnumerable<Modelo>> ObtemObservavelDeModelos();
+        Task<Modelo> CadastraModeloAsync(Modelo modelo);
 
-        Modelo[] ConsultaModelos(ParametrosDeConsultaDeModelos parametros);
+        Task<Recurso> AdicionaRecursoDeModeloAsync(Recurso recurso);
 
-        Modelo CadastraModelo(Modelo modelo);
+        Task RemoveRecursoDeModeloAsync(string codigo, string descricao);
 
-        Recurso AdicionaRecursoDeModelo(Recurso recurso);
+        Task RemoveModeloAsync(string codigo);
 
-        void RemoveRecursoDeModelo(string codigo, string descricao);
+        Task<Modelo[]> ObtemModelosAsync();
 
-        void RemoveModelo(string codigo);
+        Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros);
     }
 
     public class ParametrosDeConsultaDeModelos

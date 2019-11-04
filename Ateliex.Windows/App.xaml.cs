@@ -65,13 +65,13 @@ namespace Ateliex
             services.AddDbContext<AteliexDbContext>(options =>
                 options.UseSqlite(@"Data Source=Ateliex.db"));
 
-            services.AddTransient(typeof(MainWindow));
+            services.AddTransient<MainWindow>();
 
-            services.AddTransient(typeof(IModelosService), typeof(ModelosLocalService));
+            services.AddTransient<IModelosService, ModelosLocalService>();
 
-            services.AddTransient(typeof(ModelosDbService));
+            services.AddTransient<ModelosDbService>();
 
-            services.AddTransient(typeof(ModelosWindow));
+            services.AddTransient<ModelosWindow>();
 
             //services.AddTransient(typeof(ConsultaDeModelosWindow));
 
