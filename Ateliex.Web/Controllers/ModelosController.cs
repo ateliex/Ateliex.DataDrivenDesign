@@ -40,7 +40,7 @@ namespace Ateliex.Controllers
         [HttpPost]
         public async Task<Modelo> Post(Modelo modelo)
         {
-            var resposta = await modelosService.CadastraModeloAsync(modelo);
+            var resposta = await modelosService.AddAsync(modelo);
 
             return resposta;
         }
@@ -56,7 +56,7 @@ namespace Ateliex.Controllers
         [HttpDelete("{codigo}")]
         public void Delete(string codigo)
         {
-            modelosService.RemoveModeloAsync(codigo);
+            modelosService.RemoveAsync(codigo);
         }
     }
 }

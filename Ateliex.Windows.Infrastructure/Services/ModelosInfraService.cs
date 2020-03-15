@@ -1,16 +1,14 @@
 ﻿using Ateliex.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ateliex.Services
 {
-    public class ModelosLocalService : IModelosService
+    public class ModelosInfraService : IModelosService
     {
         private readonly ModelosDbService db;
 
-        public ModelosLocalService(ModelosDbService db)
+        public ModelosInfraService(ModelosDbService db)
         {
             this.db = db;
         }
@@ -51,22 +49,22 @@ namespace Ateliex.Services
             throw new NotImplementedException();
         }
 
-        public Task<Modelo> CadastraModeloAsync(Modelo modelo)
+        public Task<Modelo> AddAsync(Modelo modelo)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Recurso> AdicionaRecursoDeModeloAsync(Recurso recurso)
+        public Task<Recurso> AddRecursoAsync(Recurso recurso)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveRecursoDeModeloAsync(string codigo, string descricao)
+        public Task RemoveRecursoAsync(string codigo, string descricao)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveModeloAsync(string codigo)
+        public Task RemoveAsync(string codigo)
         {
             throw new NotImplementedException();
         }

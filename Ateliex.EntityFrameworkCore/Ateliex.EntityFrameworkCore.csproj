@@ -10,8 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ateliex.Models\Ateliex.Models.csproj" />
-    <ProjectReference Include="..\Ateliex.Services\Ateliex.Services.csproj" />
+    <ProjectReference Include="..\Ateliex.Data\Ateliex.Data.csproj" />
     <ProjectReference Include="..\Microsoft.EntityFrameworkCore.Extensions\Microsoft.EntityFrameworkCore.Extensions.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
   </ItemGroup>

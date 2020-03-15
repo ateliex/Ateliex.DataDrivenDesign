@@ -67,7 +67,7 @@ namespace Ateliex
 
             services.AddTransient<MainWindow>();
 
-            services.AddTransient<IModelosService, ModelosLocalService>();
+            services.AddTransient<IModelosService, ModelosInfraService>();
 
             services.AddTransient<ModelosDbService>();
 

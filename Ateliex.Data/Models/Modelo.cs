@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ateliex.Models
 {
@@ -28,13 +27,6 @@ namespace Ateliex.Models
         {
             Recursos = new HashSet<Recurso>();
         }
-    }
-
-    public enum TipoDeRecurso
-    {
-        Material,
-        Transporte,
-        Humano
     }
 
     public class Recurso
@@ -67,14 +59,10 @@ namespace Ateliex.Models
         public string ModeloCodigo { get; set; }
     }
 
-    public interface IRepositorioDeModelos
+    public enum TipoDeRecurso
     {
-        Task<Modelo> ObtemModelo(string id);
-
-        Task Add(Modelo modelo);
-
-        Task Update(Modelo modelo);
-
-        Task Remove(Modelo modelo);
+        Material,
+        Transporte,
+        Humano
     }
 }

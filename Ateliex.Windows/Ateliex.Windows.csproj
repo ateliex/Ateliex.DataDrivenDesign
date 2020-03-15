@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <AssemblyName>Ateliex</AssemblyName>
     <RootNamespace>Ateliex</RootNamespace>
@@ -25,9 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Ateliex.Infrastructure.Client\Ateliex.Infrastructure.Client.csproj" />
-    <ProjectReference Include="..\Ateliex.Models\Ateliex.Models.csproj" />
-    <ProjectReference Include="..\Ateliex.Services\Ateliex.Services.csproj" />
+    <ProjectReference Include="..\Ateliex.Data\Ateliex.Data.csproj" />
+    <ProjectReference Include="..\Ateliex.Windows.Infrastructure\Ateliex.Windows.Infrastructure.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
     <ProjectReference Include="..\System.Xaml.Extensions\System.Xaml.Extensions.csproj" />
   </ItemGroup>

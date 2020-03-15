@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ateliex.Models
 {
@@ -103,12 +102,6 @@ namespace Ateliex.Models
         }
     }
 
-    public enum TipoDeCusto
-    {
-        Fixo,
-        Variavel,
-    }
-
     public class Custo
     {
         public PlanoComercial PlanoComercial { get; set; }
@@ -174,6 +167,12 @@ namespace Ateliex.Models
         }
 
         public string PlanoComercialCodigo { get; set; }
+    }
+
+    public enum TipoDeCusto
+    {
+        Fixo,
+        Variavel,
     }
 
     public class ItemDePlanoComercial
@@ -261,16 +260,5 @@ namespace Ateliex.Models
         public string PlanoComercialCodigo { get; set; }
 
         public string ModeloCodigo { get; set; }
-    }
-
-    public interface IRepositorioDePlanosComerciais
-    {
-        Task<PlanoComercial> ObtemPlanoComercial(string id);
-
-        Task Add(PlanoComercial planoComercial);
-
-        Task Update(PlanoComercial planoComercial);
-
-        Task Remove(PlanoComercial planoComercial);
     }
 }
