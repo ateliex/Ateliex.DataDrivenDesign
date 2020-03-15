@@ -1,5 +1,6 @@
 ﻿using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using System.Configuration;
 
 namespace Ateliex.Models
@@ -18,7 +19,7 @@ namespace Ateliex.Models
         public AteliexDbContext(DbContextOptions options)
             : base(options)
         {
-            
+
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,8 +35,17 @@ namespace Ateliex.Models
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<Modelo>()
+                .HasKey(p => p.Codigo);
+
+            modelBuilder.Entity<Modelo>()
+                .Ignore(p => p.State);
+
             modelBuilder.Entity<Recurso>()
                 .HasKey(p => new { p.ModeloCodigo, p.Descricao });
+
+            modelBuilder.Entity<Recurso>()
+                .Ignore(p => p.State);
 
             modelBuilder.Entity<Custo>()
                 .HasKey(p => new { p.PlanoComercialCodigo, p.Descricao });

@@ -5,17 +5,17 @@ using System.Threading.Tasks;
 
 namespace System.ComponentModel
 {
-    public class ExtendedObservableCollection<T> : ObservableCollection<T>
-        where T : ObservableObject
+    public class EntityCollection<T> : ObservableCollection<T>
+        where T : Entity
     {
         private readonly IList<T> deletedItems;
 
-        public ExtendedObservableCollection()
+        public EntityCollection()
         {
             deletedItems = new List<T>();
         }
 
-        public ExtendedObservableCollection(IList<T> list)
+        public EntityCollection(IList<T> list)
             : base(list)
         {
             deletedItems = new List<T>();
@@ -28,16 +28,16 @@ namespace System.ComponentModel
             base.InsertItem(index, item);
         }
 
-        protected virtual void OnAddNew(T viewModel)
+        protected virtual void OnAddNew(T entity)
         {
-            viewModel.State = ObjectState.New;
+            entity.State = EntityState.New;
         }
 
-        public virtual async Task SaveChanges()
+        public virtual Task SaveChanges()
         {
             deletedItems.Clear();
 
-            await Task.FromResult(true);
+            return Task.CompletedTask;
         }
 
         protected override void RemoveItem(int index)
@@ -49,18 +49,18 @@ namespace System.ComponentModel
             base.RemoveItem(index);
         }
 
-        protected virtual void OnRemoveItem(T viewModel)
+        protected virtual void OnRemoveItem(T entity)
         {
-            viewModel.State = ObjectState.Deleted;
+            entity.State = EntityState.Deleted;
 
-            deletedItems.Add(viewModel);
+            deletedItems.Add(entity);
         }
 
-        public IEnumerable<T> GetItemsBy(ObjectState state)
+        public IEnumerable<T> GetItemsBy(EntityState state)
         {
             IEnumerable<T> items;
 
-            if (state == ObjectState.Deleted)
+            if (state == EntityState.Deleted)
             {
                 items = this.deletedItems;
             }

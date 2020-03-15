@@ -9,11 +9,15 @@ namespace Ateliex.Services
 
         Task<Recurso> AddRecursoAsync(Recurso recurso);
 
-        Task RemoveRecursoAsync(string codigo, string descricao);
+        Task<Modelo> UpdateAsync(Modelo modelo);
 
-        Task RemoveAsync(string codigo);
+        Task RemoveRecursoAsync(Recurso recurso);
+
+        Task RemoveAsync(Modelo modelo);
 
         Task<Modelo[]> ObtemModelosAsync();
+
+        Task<Modelo> ObtemModeloAsync(string codigo);
 
         Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros);
     }

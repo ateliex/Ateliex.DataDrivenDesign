@@ -1,9 +1,7 @@
 ﻿using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ateliex.Services
@@ -17,45 +15,15 @@ namespace Ateliex.Services
             this.db = db;
         }
 
-        public Task<Modelo> AddAsync(Modelo modelo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Recurso> AddRecursoAsync(Recurso recurso)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveRecursoAsync(string codigo, string descricao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveAsync(string codigo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task SaveChanges()
-        {
-            var items = db.ChangeTracker.Entries<Recurso>().ToArray();
-
-            foreach (var item in items)
-            {
-                item.State.ToString();
-            }
-
-            await db.SaveChangesAsync();
-        }
-
-        public async Task Add(Modelo modelo)
+        public async Task<Modelo> AddAsync(Modelo modelo)
         {
             try
             {
                 await db.Modelos.AddAsync(modelo);
 
                 await db.SaveChangesAsync();
+
+                return modelo;
             }
             catch (Exception ex)
             {
@@ -65,11 +33,18 @@ namespace Ateliex.Services
             }
         }
 
-        public async Task Update(Modelo modelo)
+        public Task<Recurso> AddRecursoAsync(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<Modelo> UpdateAsync(Modelo modelo)
         {
             try
             {
                 await db.SaveChangesAsync();
+
+                return modelo;
             }
             catch (Exception)
             {
@@ -79,7 +54,12 @@ namespace Ateliex.Services
             }
         }
 
-        public async Task Remove(Modelo modelo)
+        public Task RemoveRecursoAsync(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task RemoveAsync(Modelo modelo)
         {
             try
             {
@@ -95,11 +75,23 @@ namespace Ateliex.Services
             }
         }
 
-        public async Task<Modelo> ObtemModelo(string id)
+        public async Task SaveChanges()
+        {
+            var items = db.ChangeTracker.Entries<Recurso>().ToArray();
+
+            foreach (var item in items)
+            {
+                item.State.ToString();
+            }
+
+            await db.SaveChangesAsync();
+        }
+
+        public async Task<Modelo> ObtemModeloAsync(string codigo)
         {
             try
             {
-                var modelo = await db.Modelos.FindAsync(id);
+                var modelo = await db.Modelos.FindAsync(codigo);
 
                 return modelo;
             }
@@ -107,7 +99,7 @@ namespace Ateliex.Services
             {
                 // TODO: Tratar erros de persistência aqui.
 
-                throw new ApplicationException($"Erro ao obter modelo '{id}'.", ex);
+                throw new ApplicationException($"Erro ao obter modelo '{codigo}'.", ex);
             }
         }
 

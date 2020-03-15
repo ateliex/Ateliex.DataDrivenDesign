@@ -1,18 +1,6 @@
-﻿using Ateliex.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Ateliex.Collections;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ateliex.Windows
 {
@@ -21,35 +9,37 @@ namespace Ateliex.Windows
     /// </summary>
     public partial class ModelosWindow
     {
-        private readonly IModelosService modelosService;
+        private readonly ModelosCollection modelosCollection;
 
-        public ModelosWindow(IModelosService modelosService)
+        public ModelosWindow(ModelosCollection modelosCollection)
         {
-            this.modelosService = modelosService;
+            this.modelosCollection = modelosCollection;
+
+            modelosCollection.StatusChanged += SetStatusBar;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosService.ObtemModelosAsync();
+            //var modelos = await modelosCollection.ObtemModelosAsync();
 
             //var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
 
-            //var observableCollection = new ModelosObservableCollection(
+            //var observableCollection = new ModelosCollection(
             //    modelosLocalService,
             //    //consultaDeModelos,
             //    //planejamentoComercial,
             //    list
             //);
 
-            //modelosBindingSource.DataSource = bindingList;
-
-            //observableCollection.StatusChanged += SetStatusBar;
+            //modelosBindingSource.DataSource = bindingList;            
 
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            modelosViewSource.Source = modelos;
+            modelosViewSource.Source = modelosCollection;
+
+            await modelosCollection.Load();
         }
 
         private void SetStatusBar(string value)
@@ -61,11 +51,11 @@ namespace Ateliex.Windows
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
+            //CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            //var observableCollection = (ModelosObservableCollection)modelosViewSource.Source;
+            //var observableCollection = (ModelosCollection)modelosViewSource.Source;
 
-            //await observableCollection.SaveChanges();
+            await modelosCollection.SaveChanges();
         }
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)

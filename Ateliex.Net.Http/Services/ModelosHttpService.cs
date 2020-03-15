@@ -1,10 +1,6 @@
 ﻿using Ateliex.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ateliex.Services
@@ -28,12 +24,17 @@ namespace Ateliex.Services
             throw new NotImplementedException();
         }
 
-        public Task RemoveRecursoAsync(string codigo, string descricao)
+        public Task<Modelo> UpdateAsync(Modelo modelo)
         {
             throw new NotImplementedException();
         }
 
-        public Task RemoveAsync(string codigo)
+        public Task RemoveRecursoAsync(Recurso recurso)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemoveAsync(Modelo modelo)
         {
             throw new NotImplementedException();
         }
@@ -52,6 +53,11 @@ namespace Ateliex.Services
             }
 
             throw new Exception();
+        }
+
+        public Task<Modelo> ObtemModeloAsync(string codigo)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)

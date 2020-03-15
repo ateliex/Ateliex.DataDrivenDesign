@@ -7,7 +7,7 @@ namespace System.ComponentModel
     /// <summary>
     /// Observable object with INotifyPropertyChanged implemented
     /// </summary>
-    public class ObservableObject : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
+    public abstract class Entity : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
     {
         /// <summary>
         /// Sets the property.
@@ -54,15 +54,15 @@ namespace System.ComponentModel
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-            if (State == ObjectState.Unchanged)
+            if (State == EntityState.Unchanged)
             {
-                State = ObjectState.Modified;
+                State = EntityState.Modified;
             }
 
             changed.Invoke(this, new PropertyChangedEventArgs("State"));
         }
 
-        public ObjectState State { get; internal protected set; }
+        public EntityState State { get; internal protected set; }
 
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();
 
@@ -146,7 +146,7 @@ namespace System.ComponentModel
         }
     }
 
-    public enum ObjectState
+    public enum EntityState
     {
         Unchanged,
         New,

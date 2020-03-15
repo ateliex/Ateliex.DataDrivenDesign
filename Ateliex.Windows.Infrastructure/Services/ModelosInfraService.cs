@@ -13,26 +13,38 @@ namespace Ateliex.Services
             this.db = db;
         }
 
-        public async Task Add(Modelo modelo)
+        public async Task<Modelo> AddAsync(Modelo modelo)
         {
-            await db.Add(modelo);
+            await db.AddAsync(modelo);
 
-            await db.SaveChanges();
+            return modelo;
         }
 
-        public async Task Update(Modelo modelo)
+        public Task<Recurso> AddRecursoAsync(Recurso recurso)
         {
-            await db.Update(modelo);
+            throw new NotImplementedException();
         }
 
-        public async Task Remove(Modelo modelo)
+        public async Task<Modelo> UpdateAsync(Modelo modelo)
         {
-            await db.Remove(modelo);
+            await db.UpdateAsync(modelo);
+
+            return modelo;
         }
 
-        public async Task<Modelo> ObtemModelo(string id)
+        public async Task RemoveRecursoAsync(Recurso recurso)
         {
-            var result = await db.ObtemModelo(id);
+            await db.RemoveRecursoAsync(recurso);   
+        }
+
+        public async Task RemoveAsync(Modelo modelo)
+        {
+            await db.RemoveAsync(modelo);
+        }
+
+        public async Task<Modelo> ObtemModeloAsync(string id)
+        {
+            var result = await db.ObtemModeloAsync(id);
 
             return result;
         }
@@ -45,26 +57,6 @@ namespace Ateliex.Services
         }
 
         public Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Modelo> AddAsync(Modelo modelo)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Recurso> AddRecursoAsync(Recurso recurso)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveRecursoAsync(string codigo, string descricao)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task RemoveAsync(string codigo)
         {
             throw new NotImplementedException();
         }

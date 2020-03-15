@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Ateliex.Models;
+﻿using Ateliex.Models;
 using Ateliex.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace Ateliex.Controllers
 {
@@ -54,9 +51,11 @@ namespace Ateliex.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{codigo}")]
-        public void Delete(string codigo)
+        public async Task Delete(string codigo)
         {
-            modelosService.RemoveAsync(codigo);
+            var modelo = await modelosService.ObtemModeloAsync(codigo);
+
+            await modelosService.RemoveAsync(modelo);
         }
     }
 }
