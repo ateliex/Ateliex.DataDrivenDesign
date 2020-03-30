@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Resources\SaveAllHS.png" />
+    <None Remove="Resources\saveHS.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +31,15 @@
     <ProjectReference Include="..\Ateliex.Windows.Infrastructure\Ateliex.Windows.Infrastructure.csproj" />
     <ProjectReference Include="..\System.Extensions\System.Extensions.csproj" />
     <ProjectReference Include="..\System.Xaml.Extensions\System.Xaml.Extensions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\SaveAllHS.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\saveHS.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

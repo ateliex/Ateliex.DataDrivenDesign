@@ -106,9 +106,9 @@ namespace Ateliex.Windows
             //planejamentoComercial
             //);
 
-            //var planosComerciaisForm = ServiceProvider.GetRequiredService<PlanosComerciaisWindow>();
+            var planosComerciaisForm = ServiceProvider.GetRequiredService<PlanosComerciaisWindow>();
 
-            //planosComerciaisForm.Show();
+            planosComerciaisForm.Show();
         }
 
         private void Window_Unloaded(object sender, RoutedEventArgs e)

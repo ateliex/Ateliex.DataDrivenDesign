@@ -1,6 +1,7 @@
 ﻿using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -107,13 +108,13 @@ namespace Ateliex.Services
         {
             try
             {
-                var planosComerciais = await db.Modelos
+                var modelos = await db.Modelos
                     .Include(p => p.Recursos)
                     .ToArrayAsync();
 
-                //var observable = planosComerciais.ToObservable();
+                //var observable = modelos.ToObservable();
 
-                return planosComerciais;
+                return modelos;
             }
             catch (Exception ex)
             {

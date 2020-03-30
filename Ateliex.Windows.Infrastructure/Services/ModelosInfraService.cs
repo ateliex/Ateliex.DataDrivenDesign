@@ -1,21 +1,26 @@
 ﻿using Ateliex.Models;
 using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace Ateliex.Services
 {
-    public class ModelosInfraService : IModelosService
+    public class ModelosInfraService //: IModelosService
     {
-        private readonly ModelosDbService db;
+        private readonly ModelosDbService bridge;
 
-        public ModelosInfraService(ModelosDbService db)
+        private readonly AteliexDbContext db;
+
+        public ModelosInfraService(ModelosDbService bridge, AteliexDbContext db)
         {
+            this.bridge = bridge;
+
             this.db = db;
         }
 
         public async Task<Modelo> AddAsync(Modelo modelo)
         {
-            await db.AddAsync(modelo);
+            await bridge.AddAsync(modelo);
 
             return modelo;
         }
@@ -27,36 +32,45 @@ namespace Ateliex.Services
 
         public async Task<Modelo> UpdateAsync(Modelo modelo)
         {
-            await db.UpdateAsync(modelo);
+            await bridge.UpdateAsync(modelo);
 
             return modelo;
         }
 
         public async Task RemoveRecursoAsync(Recurso recurso)
         {
-            await db.RemoveRecursoAsync(recurso);   
+            await bridge.RemoveRecursoAsync(recurso);
         }
 
         public async Task RemoveAsync(Modelo modelo)
         {
-            await db.RemoveAsync(modelo);
+            await bridge.RemoveAsync(modelo);
         }
 
         public async Task<Modelo> ObtemModeloAsync(string id)
         {
-            var result = await db.ObtemModeloAsync(id);
+            var result = await bridge.ObtemModeloAsync(id);
 
             return result;
         }
 
-        public async Task<Modelo[]> ObtemModelosAsync()
+        public async Task SaveChangesAsync()
         {
-            var result = await db.ObtemModelosAsync();
-
-            return result; //.Cast<Modelo[]>();
+            await db.SaveChangesAsync();
         }
 
-        public Task<Modelo[]> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)
+        public async Task<ObservableCollection<Modelo>> ObtemModelosAsync()
+        {
+            await bridge.ObtemModelosAsync();
+
+            var collection = db.Modelos.Local.ToObservableCollection();
+
+            return collection;
+
+            //return result; //.Cast<ObservableCollection<Modelo>>();
+        }
+
+        public Task<ObservableCollection<Modelo>> ConsultaModelosAsync(ParametrosDeConsultaDeModelos parametros)
         {
             throw new NotImplementedException();
         }

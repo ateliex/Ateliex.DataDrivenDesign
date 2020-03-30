@@ -1,5 +1,4 @@
-﻿using Ateliex.Collections;
-using Ateliex.Models;
+﻿using Ateliex.Models;
 using Ateliex.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +16,9 @@ namespace Ateliex
 
             //
 
-            services.AddTransient<ModelosCollection>();
+            //services.AddTransient<ModelosCollection>();
 
-            services.AddTransient<IModelosService, ModelosInfraService>();
+            services.AddTransient<ModelosInfraService>();
 
             //services.AddTransient<IConsultaDeModelos, ModelosInfraService>();
 
@@ -33,11 +32,13 @@ namespace Ateliex
 
             //services.AddTransient<PlanosComerciaisObservableCollection>();
 
+            services.AddTransient<PlanosComerciaisInfraService>();
+
             //services.AddTransient<IConsultaDePlanosComerciais, PlanosComerciaisInfraService>();
 
             //services.AddTransient<IRepositorioDePlanosComerciais, PlanosComerciaisInfraService>();
 
-            //services.AddTransient<PlanosComerciaisDbService>();
+            services.AddTransient<PlanosComerciaisDbService>();
 
             return services;
         }

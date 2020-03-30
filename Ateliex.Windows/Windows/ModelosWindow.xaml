@@ -17,6 +17,8 @@
         <ResourceDictionary>
             <CollectionViewSource x:Key="modelosViewSource" d:DesignSource="{d:DesignInstance {x:Type models:Modelo}, CreateList=True}" />
             <CollectionViewSource x:Key="recursosViewSource" Source="{Binding Recursos, Source={StaticResource modelosViewSource}}" />
+            <Image x:Key="Save" Source="/Resources/saveHS.png" />
+            <Image x:Key="SaveAll" Source="/Resources/saveAllHS.png" />
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
@@ -50,7 +52,9 @@
             <Separator />
             <Button
                 x:Name="saveButton"
+                Height="24"
                 Click="SaveButton_Click"
+                Content="{StaticResource Save}"
                 ToolTip="Salvar" />
         </ToolBar>
         <Grid
@@ -115,6 +119,10 @@
                             ItemsSource="{Binding Source={StaticResource recursosViewSource}}"
                             RowDetailsVisibilityMode="VisibleWhenSelected">
                             <DataGrid.Columns>
+                                <DataGridTextColumn
+                                    Width="30"
+                                    Binding="{Binding Id}"
+                                    Header="Id" />
                                 <DataGridComboBoxColumn
                                     Width="Auto"
                                     Header="Tipo"

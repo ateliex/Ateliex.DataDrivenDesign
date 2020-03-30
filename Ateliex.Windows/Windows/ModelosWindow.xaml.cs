@@ -1,45 +1,30 @@
-﻿using Ateliex.Collections;
+﻿using Ateliex.Services;
+using System;
 using System.Windows;
 using System.Windows.Data;
 
 namespace Ateliex.Windows
 {
-    /// <summary>
-    /// Interaction logic for ModelosWindow.xaml
-    /// </summary>
     public partial class ModelosWindow
     {
-        private readonly ModelosCollection modelosCollection;
+        private readonly ModelosInfraService modelosService;
 
-        public ModelosWindow(ModelosCollection modelosCollection)
+        public ModelosWindow(ModelosInfraService modelosService)
         {
-            this.modelosCollection = modelosCollection;
+            this.modelosService = modelosService;
 
-            modelosCollection.StatusChanged += SetStatusBar;
+            //modelosService.StatusChanged += SetStatusBar;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //var modelos = await modelosCollection.ObtemModelosAsync();
-
-            //var list = modelos.Select(p => ModeloViewModel.From(p)).ToList();
-
-            //var observableCollection = new ModelosCollection(
-            //    modelosLocalService,
-            //    //consultaDeModelos,
-            //    //planejamentoComercial,
-            //    list
-            //);
-
-            //modelosBindingSource.DataSource = bindingList;            
-
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            modelosViewSource.Source = modelosCollection;
+            var modelos = await modelosService.ObtemModelosAsync();
 
-            await modelosCollection.Load();
+            modelosViewSource.Source = modelos;
         }
 
         private void SetStatusBar(string value)
@@ -55,7 +40,16 @@ namespace Ateliex.Windows
 
             //var observableCollection = (ModelosCollection)modelosViewSource.Source;
 
-            await modelosCollection.SaveChanges();
+            try
+            {
+                await modelosService.SaveChangesAsync();
+
+                SetStatusBar("Modelos salvos com sucesso.");
+            }
+            catch (Exception ex)
+            {
+                SetStatusBar(ex.Message);
+            }
         }
 
         private void AdicionarModeloButton_Click(object sender, RoutedEventArgs e)

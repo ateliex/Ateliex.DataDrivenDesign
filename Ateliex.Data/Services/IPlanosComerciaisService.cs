@@ -5,13 +5,13 @@ namespace Ateliex.Services
 {
     public interface IPlanosComerciaisService
     {
-        Task<PlanoComercial> ObtemPlanoComercial(string id);
+        Task<PlanoComercial> ObtemPlanoComercialAsync(string id);
 
-        Task Add(PlanoComercial planoComercial);
+        Task AddAsync(PlanoComercial planoComercial);
 
-        Task Update(PlanoComercial planoComercial);
+        Task UpdateAsync(PlanoComercial planoComercial);
 
-        Task Remove(PlanoComercial planoComercial);
+        Task RemoveAsync(PlanoComercial planoComercial);
     }
 
 }

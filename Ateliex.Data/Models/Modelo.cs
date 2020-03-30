@@ -1,6 +1,5 @@
-﻿using Ateliex.Collections;
-using System;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,49 +9,11 @@ namespace Ateliex.Models
     public class Modelo : Entity
     {
         [Key]
-        private string codigo;
         [Required(ErrorMessage = "Teste: Código Obrigatório")]
-        public string Codigo
-        {
-            get { return codigo; }
-            set
-            {
-                try
-                {
-                    codigo = value;
+        public string Codigo { get; set; }
 
-                    OnPropertyChanged();
-
-                    ClearErrors("Codigo");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Codigo", ex);
-                }
-            }
-        }
-
-        private string nome;
         [Required(ErrorMessage = "Teste: Nome Obrigatório")]
-        public string Nome
-        {
-            get { return nome; }
-            set
-            {
-                try
-                {
-                    nome = value;
-
-                    OnPropertyChanged();
-
-                    ClearErrors("Nome");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Nome", ex);
-                }
-            }
-        }
+        public string Nome { get; set; }
 
         public decimal CustoDeProducao
         {
@@ -64,7 +25,7 @@ namespace Ateliex.Models
             }
         }
 
-        public virtual RecursosCollection Recursos { get; set; }
+        public virtual ObservableCollection<Recurso> Recursos { get; set; }
 
         public Modelo()
         {
@@ -72,9 +33,23 @@ namespace Ateliex.Models
 
             Nome = "Modelo #";
 
-            Recursos = new RecursosCollection(new List<Recurso>() { });
+            Recursos = new ObservableCollection<Recurso>();
 
-            Recursos.modelo = this;
+            Recursos.CollectionChanged += Recursos_CollectionChanged;
+        }
+
+        private void Recursos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                var recurso = e.NewItems[0] as Recurso;
+
+                recurso.Modelo = this;
+
+                var total = Recursos.Count;
+
+                //recurso.Id = total;
+            }
         }
     }
 
@@ -82,47 +57,11 @@ namespace Ateliex.Models
     {
         public virtual Modelo Modelo { get; set; }
 
-        private TipoDeRecurso tipo;
-        public TipoDeRecurso Tipo
-        {
-            get { return tipo; }
-            set
-            {
-                try
-                {
-                    tipo = value;
+        public int Id { get; set; }
 
-                    OnPropertyChanged();
+        public TipoDeRecurso Tipo { get; set; }
 
-                    ClearErrors("Tipo");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Tipo", ex);
-                }
-            }
-        }
-
-        private string descricao;
-        public string Descricao
-        {
-            get { return descricao; }
-            set
-            {
-                try
-                {
-                    descricao = value;
-
-                    OnPropertyChanged();
-
-                    ClearErrors("Descricao");
-                }
-                catch (Exception ex)
-                {
-                    RaiseErrorsChanged("Descricao", ex);
-                }
-            }
-        }
+        public string Descricao { get; set; }
 
         public decimal Custo { get; set; }
 
@@ -147,7 +86,19 @@ namespace Ateliex.Models
 
         public Recurso()
         {
+            PropertyChanged += Recurso_PropertyChanged;
+        }
 
+        private static void Recurso_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var recurso = sender as Recurso;
+
+            if (recurso.Modelo == null) return;
+
+            if (e.PropertyName == nameof(CustoPorUnidade))
+            {
+                recurso.Modelo.OnPropertyChanged("CustoDeProducao");
+            }
         }
 
         public string ModeloCodigo { get; set; }

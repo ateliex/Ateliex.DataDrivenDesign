@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Ateliex.Models
 {
-    public class PlanoComercial
+    public class PlanoComercial : Entity
     {
         [Key]
         public string Codigo { get; set; }
@@ -83,15 +85,92 @@ namespace Ateliex.Models
             }
         }
 
-        public virtual ICollection<Custo> Custos { get; set; }
+        public virtual ObservableCollection<Custo> Custos { get; set; }
 
-        public virtual ICollection<ItemDePlanoComercial> Itens { get; set; }
+        public virtual ObservableCollection<ItemDePlanoComercial> Itens { get; set; }
 
         public PlanoComercial()
         {
-            Custos = new HashSet<Custo>();
+            Codigo = Guid.NewGuid().ToString();
 
-            Itens = new HashSet<ItemDePlanoComercial>();
+            Nome = "Plano Comercial #";
+
+            Custos = new ObservableCollection<Custo>();
+
+            Itens = new ObservableCollection<ItemDePlanoComercial>();
+
+            PropertyChanged += PlanoComercial_PropertyChanged;
+
+            Custos.CollectionChanged += Custos_CollectionChanged;
+
+            Itens.CollectionChanged += Itens_CollectionChanged;
+        }
+
+        private static void PlanoComercial_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var planoComercial = sender as PlanoComercial;
+
+            if (e.PropertyName == nameof(CustoFixoPercentualTotal))
+            {
+                foreach (var item in planoComercial.Itens)
+                {
+                    item.OnPropertyChanged("TaxaDeMarcacao");
+                }
+            }
+            else if (e.PropertyName == nameof(CustoVariavelPercentualTotal))
+            {
+                foreach (var item in planoComercial.Itens)
+                {
+                    item.OnPropertyChanged("TaxaDeMarcacao");
+                }
+            }
+        }
+
+        private void Custos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                var custo = e.NewItems[0] as Custo;
+
+                custo.PlanoComercial = this;
+
+                var total = Custos.Count;
+
+                //custo.Id = total;
+            }
+        }
+
+        private void Itens_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                var item = e.NewItems[0] as ItemDePlanoComercial;
+
+                item.PlanoComercial = this;
+
+                var total = Itens.Count;
+
+                //item.Id = total;
+            }
+        }
+
+        public Custo AdicionaCusto(TipoDeCusto tipo, string descricao)
+        {
+            var model = new Custo
+            {
+                PlanoComercial = this,
+                Tipo = tipo,
+                Descricao = descricao
+            };
+
+            Custos.Add(model);
+
+            return model;
+        }
+
+        public void RemoveCusto(Custo custo)
+        {
+            Custos.Remove(custo);
         }
 
         public bool ExisteItemDoModelo(Modelo modelo)
@@ -100,11 +179,36 @@ namespace Ateliex.Models
 
             return existe;
         }
+
+        public ItemDePlanoComercial AdicionaItem(Modelo modelo)
+        {
+            //var max = Itens.Count;
+
+            //var nextId = max++;
+
+            var model = new ItemDePlanoComercial
+            {
+                PlanoComercial = this,
+                //Id = nextId,
+                Modelo = modelo
+            };
+
+            Itens.Add(model);
+
+            return model;
+        }
+
+        public void RemoveItem(ItemDePlanoComercial item)
+        {
+            Itens.Remove(item);
+        }
     }
 
-    public class Custo
+    public class Custo : Entity
     {
         public PlanoComercial PlanoComercial { get; set; }
+
+        public int Id { get; set; }
 
         public TipoDeCusto Tipo { get; set; }
 
@@ -163,7 +267,31 @@ namespace Ateliex.Models
 
         public Custo()
         {
+            PropertyChanged += Custo_PropertyChanged;
+        }
 
+        private static void Custo_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var custo = sender as Custo;
+
+            if (custo.PlanoComercial == null) return;
+
+            if (e.PropertyName == nameof(Valor))
+            {
+                custo.PlanoComercial.OnPropertyChanged("CustoFixoTotal");
+            }
+            else if (e.PropertyName == nameof(Percentual))
+            {
+                custo.PlanoComercial.OnPropertyChanged("CustoVariavelPercentualTotal");
+            }
+            else if (e.PropertyName == nameof(ValorCalculado))
+            {
+                custo.PlanoComercial.OnPropertyChanged("CustoVariavelTotal");
+            }
+            else if (e.PropertyName == nameof(PercentualCalculado))
+            {
+                custo.PlanoComercial.OnPropertyChanged("CustoFixoPercentualTotal");
+            }
         }
 
         public string PlanoComercialCodigo { get; set; }
@@ -175,13 +303,79 @@ namespace Ateliex.Models
         Variavel,
     }
 
-    public class ItemDePlanoComercial
+    public class ItemDePlanoComercial : Entity
     {
-        public virtual PlanoComercial PlanoComercial { get; set; }
+        //private PlanoComercial planoComercial;
 
-        public int Id { get; set; }
+        public PlanoComercial PlanoComercial { get; set; }
+        //{
+        //    get { return planoComercial; }
+        //    set
+        //    {
+        //        if (value == null)
+        //        {
+        //            if (planoComercial != null)
+        //            {
+        //                planoComercial.PropertyChanged -= PlanoComercial_PropertyChanged;
+        //            }
+        //        }
 
-        public virtual Modelo Modelo { get; set; }
+        //        planoComercial = value;
+
+        //        if (planoComercial != null)
+        //        {
+        //            planoComercial.PropertyChanged += PlanoComercial_PropertyChanged;
+        //        }
+        //    }
+        //}
+
+        //private void PlanoComercial_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        //{
+        //    var planoComercial = sender as PlanoComercial;
+
+        //    if (e.PropertyName == "CustoFixoPercentualTotal")
+        //    {
+        //        OnPropertyChanged(nameof(TaxaDeMarcacao));
+        //    }
+        //    else if (e.PropertyName == "CustoVariavelPercentualTotal")
+        //    {
+        //        OnPropertyChanged(nameof(TaxaDeMarcacao));
+        //    }
+        //}
+
+        private Modelo modelo;
+
+        public Modelo Modelo
+        {
+            get { return modelo; }
+            set
+            {
+                if (value == null)
+                {
+                    if (modelo != null)
+                    {
+                        modelo.PropertyChanged -= Modelo_PropertyChanged;
+                    }
+                }
+
+                modelo = value;
+
+                if (modelo != null)
+                {
+                    modelo.PropertyChanged += Modelo_PropertyChanged;
+                }
+            }
+        }
+
+        private void Modelo_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var modelo = sender as Modelo;
+
+            if (e.PropertyName == "CustoDeProducao")
+            {
+                OnPropertyChanged(nameof(CustoDeProducao));
+            }
+        }
 
         public decimal CustoDeProducao { get { return Modelo.CustoDeProducao; } }
 
@@ -254,7 +448,27 @@ namespace Ateliex.Models
 
         public ItemDePlanoComercial()
         {
+            PropertyChanged += ItemDePlanoComercial_PropertyChanged;
+        }
 
+        private static void ItemDePlanoComercial_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var item = sender as ItemDePlanoComercial;
+
+            if (item.PlanoComercial == null) return;
+
+            if (e.PropertyName == nameof(TaxaDeMarcacao))
+            {
+                item.OnPropertyChanged(nameof(PrecoDeVenda));
+            }
+            //if (e.PropertyName == nameof(MargemPercentual))
+            //{
+            //    item.OnPropertyChanged(nameof(TaxaDeMarcacao));
+            //}
+            //else if (e.PropertyName == nameof(PercentualCalculado))
+            //{
+            //    item.PlanoComercial.OnPropertyChanged("CustoFixoPercentualTotal");
+            //}
         }
 
         public string PlanoComercialCodigo { get; set; }

@@ -1,7 +1,4 @@
-﻿using Ateliex.Models;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
-using System.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Ateliex.Models
 {
@@ -35,23 +32,32 @@ namespace Ateliex.Models
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Modelo>()
-                .HasKey(p => p.Codigo);
+            //modelBuilder.Entity<Modelo>()
+            //    .HasKey(p => p.Codigo);
 
             modelBuilder.Entity<Modelo>()
                 .Ignore(p => p.State);
 
             modelBuilder.Entity<Recurso>()
-                .HasKey(p => new { p.ModeloCodigo, p.Descricao });
+                .HasKey(p => new { p.ModeloCodigo, p.Id });
 
             modelBuilder.Entity<Recurso>()
+                .Ignore(p => p.State);
+
+            modelBuilder.Entity<PlanoComercial>()
                 .Ignore(p => p.State);
 
             modelBuilder.Entity<Custo>()
-                .HasKey(p => new { p.PlanoComercialCodigo, p.Descricao });
+                .HasKey(p => new { p.PlanoComercialCodigo, p.Id });
+
+            modelBuilder.Entity<Custo>()
+                .Ignore(p => p.State);
 
             modelBuilder.Entity<ItemDePlanoComercial>()
-                .HasKey(p => new { p.PlanoComercialCodigo, p.Id });
+                .HasKey(p => new { p.PlanoComercialCodigo, p.ModeloCodigo });
+
+            modelBuilder.Entity<ItemDePlanoComercial>()
+                .Ignore(p => p.State);
 
             // Seed.
 
@@ -69,11 +75,11 @@ namespace Ateliex.Models
             );
 
             modelBuilder.Entity<Recurso>().HasData(
-                new Recurso { ModeloCodigo = "TM01", Tipo = TipoDeRecurso.Material, Descricao = "Tecido", Custo = 20, Unidades = 2 },
-                new Recurso { ModeloCodigo = "TM01", Tipo = TipoDeRecurso.Material, Descricao = "Linha", Custo = 4, Unidades = 20 },
-                new Recurso { ModeloCodigo = "TM01", Tipo = TipoDeRecurso.Material, Descricao = "Outros", Custo = 5, Unidades = 1 },
-                new Recurso { ModeloCodigo = "TM01", Tipo = TipoDeRecurso.Transporte, Descricao = "Transporte", Custo = 100, Unidades = 50 },
-                new Recurso { ModeloCodigo = "TM01", Tipo = TipoDeRecurso.Humano, Descricao = "Costureira", Custo = 5, Unidades = 1 }
+                new Recurso { ModeloCodigo = "TM01", Id = 1, Tipo = TipoDeRecurso.Material, Descricao = "Tecido", Custo = 20, Unidades = 2 },
+                new Recurso { ModeloCodigo = "TM01", Id = 2, Tipo = TipoDeRecurso.Material, Descricao = "Linha", Custo = 4, Unidades = 20 },
+                new Recurso { ModeloCodigo = "TM01", Id = 3, Tipo = TipoDeRecurso.Material, Descricao = "Outros", Custo = 5, Unidades = 1 },
+                new Recurso { ModeloCodigo = "TM01", Id = 4, Tipo = TipoDeRecurso.Transporte, Descricao = "Transporte", Custo = 100, Unidades = 50 },
+                new Recurso { ModeloCodigo = "TM01", Id = 5, Tipo = TipoDeRecurso.Humano, Descricao = "Costureira", Custo = 5, Unidades = 1 }
             );
 
             modelBuilder.Entity<PlanoComercial>().HasData(
@@ -83,34 +89,34 @@ namespace Ateliex.Models
             );
 
             modelBuilder.Entity<Custo>().HasData(
-                new Custo { PlanoComercialCodigo = "PC01.A", Tipo = TipoDeCusto.Fixo, Descricao = "Prolabore", Valor = 1000 },
-                new Custo { PlanoComercialCodigo = "PC01.A", Tipo = TipoDeCusto.Fixo, Descricao = "Aluguel", Valor = 900 },
-                new Custo { PlanoComercialCodigo = "PC01.A", Tipo = TipoDeCusto.Variavel, Descricao = "Cartão", Percentual = 10 },
-                new Custo { PlanoComercialCodigo = "PC01.A", Tipo = TipoDeCusto.Variavel, Descricao = "Comissão", Percentual = 10 },
-                new Custo { PlanoComercialCodigo = "PC01.A", Tipo = TipoDeCusto.Variavel, Descricao = "Perda", Percentual = 2 }
+                new Custo { PlanoComercialCodigo = "PC01.A", Id = 1, Tipo = TipoDeCusto.Fixo, Descricao = "Prolabore", Valor = 1000 },
+                new Custo { PlanoComercialCodigo = "PC01.A", Id = 2, Tipo = TipoDeCusto.Fixo, Descricao = "Aluguel", Valor = 900 },
+                new Custo { PlanoComercialCodigo = "PC01.A", Id = 3, Tipo = TipoDeCusto.Variavel, Descricao = "Cartão", Percentual = 10 },
+                new Custo { PlanoComercialCodigo = "PC01.A", Id = 4, Tipo = TipoDeCusto.Variavel, Descricao = "Comissão", Percentual = 10 },
+                new Custo { PlanoComercialCodigo = "PC01.A", Id = 5, Tipo = TipoDeCusto.Variavel, Descricao = "Perda", Percentual = 2 }
             );
 
             modelBuilder.Entity<ItemDePlanoComercial>().HasData(
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", Id = 1, ModeloCodigo = "TM01", MargemPercentual = 1.93m },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", Id = 2, ModeloCodigo = "TM02" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", Id = 3, ModeloCodigo = "TM03" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", Id = 10, ModeloCodigo = "TM10" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 1, ModeloCodigo = "TM01" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 2, ModeloCodigo = "TM02" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 3, ModeloCodigo = "TM03" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 4, ModeloCodigo = "TM04" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 5, ModeloCodigo = "TM05" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 6, ModeloCodigo = "TM06" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 7, ModeloCodigo = "TM07" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 8, ModeloCodigo = "TM08" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 9, ModeloCodigo = "TM09" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", Id = 10, ModeloCodigo = "TM10" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 5, ModeloCodigo = "TM05" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 6, ModeloCodigo = "TM06" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 7, ModeloCodigo = "TM07" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 8, ModeloCodigo = "TM08" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 9, ModeloCodigo = "TM09" },
-                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", Id = 10, ModeloCodigo = "TM10" }
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", ModeloCodigo = "TM01", MargemPercentual = 1.93m },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", ModeloCodigo = "TM02" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", ModeloCodigo = "TM03" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.A", ModeloCodigo = "TM10" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM01" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM02" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM03" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM04" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM05" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM06" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM07" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM08" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM09" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.B", ModeloCodigo = "TM10" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM05" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM06" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM07" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM08" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM09" },
+                new ItemDePlanoComercial { PlanoComercialCodigo = "PC01.C", ModeloCodigo = "TM10" }
            );
         }
     }

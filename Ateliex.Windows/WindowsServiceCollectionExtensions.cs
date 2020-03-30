@@ -11,9 +11,9 @@ namespace Ateliex
 
             services.AddTransient(typeof(ModelosWindow));
 
-            //services.AddTransient(typeof(ConsultaDeModelosWindow));
+            services.AddTransient(typeof(ConsultaDeModelosWindow));
 
-            //services.AddTransient(typeof(PlanosComerciaisWindow));
+            services.AddTransient(typeof(PlanosComerciaisWindow));
 
             return services;
         }
