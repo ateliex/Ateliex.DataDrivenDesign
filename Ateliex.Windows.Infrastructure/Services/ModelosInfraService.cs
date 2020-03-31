@@ -1,4 +1,5 @@
-﻿using Ateliex.Models;
+﻿using Ateliex.Data;
+using Ateliex.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

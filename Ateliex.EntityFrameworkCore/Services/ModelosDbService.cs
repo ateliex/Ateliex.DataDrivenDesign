@@ -1,7 +1,7 @@
-﻿using Ateliex.Models;
+﻿using Ateliex.Data;
+using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 

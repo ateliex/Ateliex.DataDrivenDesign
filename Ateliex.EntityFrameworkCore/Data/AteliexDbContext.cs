@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ateliex.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace Ateliex.Models
+namespace Ateliex.Data
 {
     public class AteliexDbContext : DbContext
     {

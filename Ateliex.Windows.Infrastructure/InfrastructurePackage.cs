@@ -1,4 +1,4 @@
-﻿using Ateliex.Models;
+﻿using Ateliex.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
