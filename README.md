@@ -18,6 +18,9 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 # Limitações
 - Não é possível observar a alteração de um modelo em um plano comercial; o EF sobreescreve a propriedade modelo; era necessário para atualizar o preço de venda quando mudasse o custo de produção; porém, como são agregados diferentes, isso não chega a ferir a lógica de agregados?
 
+# Observações
+- Projetos da camada de apresentação são modularizados pelo viés técnico, assim como toda a solução.
+
 # TODO
 - Novos itens filhos não estão pegando corretamente um novo Id.
 - Adição de modelo na tabela de preços está ficando duplicado.
