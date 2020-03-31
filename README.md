@@ -23,3 +23,4 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 - Adição de modelo na tabela de preços está ficando duplicado.
 - Id com número da coluna ainda não funcionam corretamente; quando existe mais de uma página de scroll, o problema é observado.
 - Implementar os campos com a descrição "sugerido" (ex.: preço de venda sugerido).
+- Implementar os pedidos de vendas.
