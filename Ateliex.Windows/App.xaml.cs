@@ -11,9 +11,6 @@ using System.Windows;
 
 namespace Ateliex
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public IServiceProvider ServiceProvider { get; private set; }
@@ -31,7 +28,7 @@ namespace Ateliex
             CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -43,10 +40,15 @@ namespace Ateliex
 
             ConfigureServices(serviceCollection);
 
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+            ServiceProvider = serviceCollection.BuildServiceProvider(); //validateScopes: true
 
+            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 
-            InitializeDatabase();
+            //
+
+            await DbModule.EnsureDatabaseCreatedAsync(serviceScopeFactory);
+
+            //
 
 
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
@@ -59,31 +61,6 @@ namespace Ateliex
             services.AddWindows();
 
             services.AddInfrastructure();
-        }
-
-        //private void InitializeContainer()
-        //{
-        //    var package = new InfrastructurePackage();
-
-        //    var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-        //    //container.RegisterPackages(assemblies);
-
-        //    //container.Verify();
-        //}
-
-        private void InitializeDatabase()
-        {
-            var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
-
-            using (var serviceScope = serviceScopeFactory.CreateScope())
-            {
-                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
-
-                dbContext.Database.EnsureCreated();
-
-                dbContext.Database.Migrate();
-            }
         }
     }
 }

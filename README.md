@@ -20,6 +20,7 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 
 # Observações
 - Projetos da camada de apresentação são modularizados pelo viés técnico, assim como toda a solução.
+- Api Web "CRUD" com Swagger.
 
 # TODO
 - Novos itens filhos não estão pegando corretamente um novo Id.

@@ -1,22 +1,15 @@
-﻿using Ateliex.Data;
-using Ateliex.Services;
-using Microsoft.EntityFrameworkCore;
+﻿using Ateliex.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ateliex
 {
-    public static class InfrastructureServiceCollectionExtensions
+    public static class InfrastructureModule
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlite(@"Data Source=Ateliex.db"));
-
             //services.AddTransient(typeof(IUnitOfWork), typeof(TransactionScopeManager));
 
             //
-
-            //services.AddTransient<ModelosCollection>();
 
             services.AddTransient<ModelosInfraService>();
 
@@ -24,13 +17,7 @@ namespace Ateliex
 
             //services.AddTransient<IRepositorioDeModelos, ModelosInfraService>();
 
-            services.AddTransient<ModelosDbService>();
-
-            services.AddTransient<ModelosHttpService>();
-
             //
-
-            //services.AddTransient<PlanosComerciaisObservableCollection>();
 
             services.AddTransient<PlanosComerciaisInfraService>();
 
@@ -38,7 +25,13 @@ namespace Ateliex
 
             //services.AddTransient<IRepositorioDePlanosComerciais, PlanosComerciaisInfraService>();
 
-            services.AddTransient<PlanosComerciaisDbService>();
+            //
+
+            services.AddDbServices();
+            
+            services.AddHttpServices();
+
+            //
 
             return services;
         }

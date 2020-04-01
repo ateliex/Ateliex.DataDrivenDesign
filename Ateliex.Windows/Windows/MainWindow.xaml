@@ -10,8 +10,6 @@
     Title="Ateliex"
     Width="800"
     Height="450"
-    Loaded="Window_Loaded"
-    Unloaded="Window_Unloaded"
     mc:Ignorable="d">
     <Window.Resources>
         <converters:VisualToImageSourceConverter x:Key="Converter" />
