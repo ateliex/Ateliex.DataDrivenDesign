@@ -1,7 +1,10 @@
-﻿using Ateliex.Models;
-using Ateliex.Services;
+﻿using Ateliex.Data;
+using Ateliex.Models;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -12,24 +15,44 @@ namespace Ateliex.Windows
     /// </summary>
     public partial class ConsultaDeModelosWindow : Window
     {
-        private readonly ModelosInfraService modelosInfraService;
+        private readonly AteliexDbContext db;
 
-        public ConsultaDeModelosWindow(ModelosInfraService modelosInfraService)
+        public ConsultaDeModelosWindow(AteliexDbContext db)
         {
-            this.modelosInfraService = modelosInfraService;
+            this.db = db;
 
             InitializeComponent();
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var modelos = await modelosInfraService.ObtemModelosAsync();
+            var modelos = await ObtemModelosAsync();
 
             var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
 
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
             modelosViewSource.Source = list;
+        }
+
+        public async Task<Modelo[]> ObtemModelosAsync()
+        {
+            try
+            {
+                var modelos = await db.Modelos
+                    .Include(p => p.Recursos)
+                    .ToArrayAsync();
+
+                //var observable = modelos.ToObservable();
+
+                return modelos;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Tratar erros de persistência aqui.
+
+                throw new ApplicationException("Erro ao obter modelos.", ex);
+            }
         }
 
         private IEnumerable<Modelo> selecteds;

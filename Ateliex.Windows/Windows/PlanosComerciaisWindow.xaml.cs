@@ -1,20 +1,14 @@
-﻿using Ateliex.Models;
-using Ateliex.Services;
+﻿using Ateliex.Data;
+using Ateliex.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Transactions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Ateliex.Windows
 {
@@ -23,29 +17,45 @@ namespace Ateliex.Windows
     /// </summary>
     public partial class PlanosComerciaisWindow
     {
-        private readonly PlanosComerciaisInfraService planosComerciaisInfraService;
+        private readonly AteliexDbContext db;
 
-        private readonly ModelosInfraService modelosInfraService;
-
-        public PlanosComerciaisWindow(
-            PlanosComerciaisInfraService planosComerciaisInfraService,
-            ModelosInfraService modelosInfraService
-        )
+        public PlanosComerciaisWindow(AteliexDbContext db)
         {
-            this.planosComerciaisInfraService = planosComerciaisInfraService;
-
-            this.modelosInfraService = modelosInfraService;
-
             InitializeComponent();
+
+            this.db = db;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             CollectionViewSource planosComerciaisViewSource = ((CollectionViewSource)(this.FindResource("planosComerciaisViewSource")));
 
-            var modelos = await planosComerciaisInfraService.ObtemPlanosComerciaisAsync();
+            var modelos = await ObtemPlanosComerciaisAsync();
 
             planosComerciaisViewSource.Source = modelos;
+        }
+
+        public async Task<PlanoComercial[]> ObtemPlanosComerciaisAsync()
+        {
+            try
+            {
+                var planosComerciais = await db.PlanosComerciais
+                    .Include(p => p.Custos)
+                    .Include(p => p.Itens)
+                        .ThenInclude(p => p.Modelo)
+                            .ThenInclude(p => p.Recursos)
+                    .ToArrayAsync();
+
+                //var observable = planosComerciais.ToObservable();
+
+                return planosComerciais;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Tratar erros de persistência aqui.
+
+                throw new ApplicationException("Erro em Planos Comerciais.", ex);
+            }
         }
 
         //void DataGrid_LoadingRow(object sender, DataGridRowEventArgs e)
@@ -68,7 +78,7 @@ namespace Ateliex.Windows
 
             try
             {
-                await planosComerciaisInfraService.SaveChangesAsync();
+                await db.SaveChangesAsync();
 
                 SetStatusBar("Modelos salvos com sucesso.");
             }
@@ -82,9 +92,7 @@ namespace Ateliex.Windows
         {
             if (planosComerciaisDataGrid.CurrentItem == null) return;
 
-            var consultaDeModelosWindow = new ConsultaDeModelosWindow(
-                modelosInfraService
-            );
+            var consultaDeModelosWindow = new ConsultaDeModelosWindow(db);
 
             var selecteds = GetSelectedItens();
 

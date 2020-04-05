@@ -1,5 +1,8 @@
-﻿using Ateliex.Services;
+﻿using Ateliex.Data;
+using Ateliex.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
@@ -7,11 +10,11 @@ namespace Ateliex.Windows
 {
     public partial class ModelosWindow
     {
-        private readonly ModelosInfraService modelosService;
+        private readonly AteliexDbContext db;
 
-        public ModelosWindow(ModelosInfraService modelosService)
+        public ModelosWindow(AteliexDbContext db)
         {
-            this.modelosService = modelosService;
+            this.db = db;
 
             //modelosService.StatusChanged += SetStatusBar;
 
@@ -22,9 +25,29 @@ namespace Ateliex.Windows
         {
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            var modelos = await modelosService.ObtemModelosAsync();
+            var modelos = await ObtemModelosAsync();
 
             modelosViewSource.Source = modelos;
+        }
+
+        public async Task<Modelo[]> ObtemModelosAsync()
+        {
+            try
+            {
+                var modelos = await db.Modelos
+                    .Include(p => p.Recursos)
+                    .ToArrayAsync();
+
+                //var observable = modelos.ToObservable();
+
+                return modelos;
+            }
+            catch (Exception ex)
+            {
+                // TODO: Tratar erros de persistência aqui.
+
+                throw new ApplicationException("Erro ao obter modelos.", ex);
+            }
         }
 
         private void SetStatusBar(string value)
@@ -42,7 +65,7 @@ namespace Ateliex.Windows
 
             try
             {
-                await modelosService.SaveChangesAsync();
+                await db.SaveChangesAsync();
 
                 SetStatusBar("Modelos salvos com sucesso.");
             }

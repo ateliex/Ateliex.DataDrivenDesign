@@ -1,5 +1,4 @@
 ﻿using Ateliex.Data;
-using Ateliex.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
@@ -11,15 +10,7 @@ namespace Ateliex
         internal static IServiceCollection AddDbServices(this IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlite(@"Data Source=Ateliex.db"));
-
-            //
-
-            services.AddTransient<ModelosDbService>();
-
-            //
-
-            services.AddTransient<PlanosComerciaisDbService>();
+                options.UseSqlServer(@"Data Source=Ateliex.db"));
 
             //
 

@@ -21,6 +21,7 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 # Observações
 - Projetos da camada de apresentação são modularizados pelo viés técnico, assim como toda a solução.
 - Api Web "CRUD" com Swagger.
+- A Api Web do DDD' parece ser feita especialmente para um App cliente do UCDD e não para o próprio DDD'.
 
 # TODO
 - Novos itens filhos não estão pegando corretamente um novo Id.
