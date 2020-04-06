@@ -2,6 +2,7 @@
 using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
@@ -27,7 +28,28 @@ namespace Ateliex.Windows
 
             var modelos = await ObtemModelosAsync();
 
+            foreach (var modelo in modelos)
+            {
+                modelo.RecursosChanged += Modelo_RecursosChanged;
+            }
+
             modelosViewSource.Source = modelos;
+        }
+
+        private void Modelo_RecursosChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            var modelo = sender as Modelo;
+
+            if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                var recurso = e.NewItems[0] as Recurso;
+
+                recurso.Modelo = modelo;
+
+                var total = recurso.Modelo.Recursos.Count;
+
+                recurso.Id = total;
+            }
         }
 
         public async Task<Modelo[]> ObtemModelosAsync()

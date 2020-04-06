@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -27,6 +28,8 @@ namespace Ateliex.Models
 
         public virtual ObservableCollection<Recurso> Recursos { get; set; }
 
+        public event NotifyCollectionChangedEventHandler RecursosChanged;
+
         public Modelo()
         {
             Codigo = Guid.NewGuid().ToString();
@@ -38,18 +41,9 @@ namespace Ateliex.Models
             Recursos.CollectionChanged += Recursos_CollectionChanged;
         }
 
-        private void Recursos_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Recursos_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                var recurso = e.NewItems[0] as Recurso;
-
-                recurso.Modelo = this;
-
-                var total = Recursos.Count;
-
-                //recurso.Id = total;
-            }
+            RecursosChanged?.Invoke(this, e);
         }
     }
 
