@@ -29,3 +29,4 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 - Id com número da coluna ainda não funcionam corretamente; quando existe mais de uma página de scroll, o problema é observado.
 - Implementar os campos com a descrição "sugerido" (ex.: preço de venda sugerido).
 - Implementar os pedidos de vendas.
+- Adicionar Testes de sistema (Windows e Web).
