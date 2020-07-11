@@ -2,6 +2,7 @@
 using Ateliex.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,13 +53,13 @@ namespace Ateliex.Windows
             }
         }
 
-        public async Task<Modelo[]> ObtemModelosAsync()
+        public async Task<List<Modelo>> ObtemModelosAsync()
         {
             try
             {
                 var modelos = await db.Modelos
                     .Include(p => p.Recursos)
-                    .ToArrayAsync();
+                    .ToListAsync();
 
                 //var observable = modelos.ToObservable();
 

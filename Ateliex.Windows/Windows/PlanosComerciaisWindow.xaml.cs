@@ -35,7 +35,7 @@ namespace Ateliex.Windows
             planosComerciaisViewSource.Source = modelos;
         }
 
-        public async Task<PlanoComercial[]> ObtemPlanosComerciaisAsync()
+        public async Task<List<PlanoComercial>> ObtemPlanosComerciaisAsync()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace Ateliex.Windows
                     .Include(p => p.Itens)
                         .ThenInclude(p => p.Modelo)
                             .ThenInclude(p => p.Recursos)
-                    .ToArrayAsync();
+                    .ToListAsync();
 
                 //var observable = planosComerciais.ToObservable();
 
