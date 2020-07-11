@@ -32,3 +32,4 @@ https://simpleinjector.readthedocs.io/en/latest/wpfintegration.html
 - Adicionar Testes de sistema (Windows e Web).
 - Adicionar Swagger.
 - Opção com lazy loading ou não.
+- ListView: estilizar e sincronizar seleção

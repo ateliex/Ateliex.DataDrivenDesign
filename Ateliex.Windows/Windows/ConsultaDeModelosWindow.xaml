@@ -18,39 +18,55 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid DataContext="{StaticResource modelosViewSource}">
-        <DataGrid
-            x:Name="modelosDataGrid"
-            AutoGenerateColumns="False"
-            CanUserAddRows="False"
-            EnableRowVirtualization="True"
+        <ListView
+            x:Name="modelosListView"
+            IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"
-            RowDetailsVisibilityMode="VisibleWhenSelected">
-            <!--<DataGrid.RowValidationRules>
-                <local:ModeloValidationRule ValidationStep="UpdatedValue"/>
-            </DataGrid.RowValidationRules>-->
-            <DataGrid.Columns>
-                <DataGridCheckBoxColumn
+            SelectionChanged="modelosListView_SelectionChanged">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn x:Name="selectedColumn">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Path=Selected, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListViewItem}}}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn
+                            x:Name="codigoColumn"
+                            Width="72"
+                            DisplayMemberBinding="{Binding Codigo, Mode=OneWay}"
+                            Header="Código" />
+                        <GridViewColumn
+                            x:Name="nomeColumn"
+                            Width="Auto"
+                            DisplayMemberBinding="{Binding Nome, Mode=OneWay}"
+                            Header="Nome" />
+                        <GridViewColumn
+                            x:Name="custoDeProducaoColumn"
+                            Width="72"
+                            DisplayMemberBinding="{Binding CustoDeProducao, Mode=OneWay}"
+                            Header="CP (R$)" />
+                    </GridView.Columns>
+                </GridView>
+                <!--<DataGridCheckBoxColumn
                     x:Name="selectedColumn"
                     Width="Auto"
                     Binding="{Binding Selected}"
                     Header="" />
                 <DataGridTextColumn
-                    x:Name="codigoColumn"
-                    Width="72"
-                    Binding="{Binding Modelo.Codigo, Mode=OneWay}"
-                    Header="Código" />
-                <DataGridTextColumn
-                    x:Name="nomeColumn"
-                    Width="*"
-                    Binding="{Binding Modelo.Nome, Mode=OneWay}"
-                    Header="Nome" />
-                <DataGridTextColumn
                     x:Name="custoDeProducaoColumn"
                     Width="72"
                     Binding="{Binding Modelo.CustoDeProducao, Mode=OneWay}"
                     CellStyle="{StaticResource RightStyle}"
-                    Header="CP (R$)" />
-            </DataGrid.Columns>
-        </DataGrid>
+                    Header="CP (R$)" />-->
+            </ListView.View>
+            <!--<ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>-->
+        </ListView>
     </Grid>
 </Window>

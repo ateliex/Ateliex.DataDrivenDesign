@@ -28,11 +28,11 @@ namespace Ateliex.Windows
         {
             var modelos = await ObtemModelosAsync();
 
-            var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
+            //var list = modelos.Select(p => ItemDeConsultaDeModeloViewModel.From(p, selecteds)).ToList();
 
             CollectionViewSource modelosViewSource = ((CollectionViewSource)(this.FindResource("modelosViewSource")));
 
-            modelosViewSource.Source = list;
+            modelosViewSource.Source = modelos;
         }
 
         public async Task<Modelo[]> ObtemModelosAsync()
@@ -64,19 +64,26 @@ namespace Ateliex.Windows
 
         public IEnumerable<Modelo> GetSelecteds()
         {
+            //var x = modelosDataGrid.SelectedItems
+
             var list = new List<Modelo>();
 
-            foreach (var item in modelosDataGrid.Items)
+            foreach (var item in modelosListView.SelectedItems)
             {
-                var viewModel = item as ItemDeConsultaDeModeloViewModel;
+                var viewModel = item as Modelo;
 
-                if (viewModel.Selected)
-                {
-                    list.Add(viewModel.Modelo);
-                }
+                //if (viewModel.Selected)
+                //{
+                    list.Add(viewModel);
+                //}
             }
 
             return list;
+        }
+
+        private void modelosListView_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
         }
     }
 
