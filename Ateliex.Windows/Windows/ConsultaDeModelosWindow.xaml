@@ -20,6 +20,7 @@
     <Grid DataContext="{StaticResource modelosViewSource}">
         <ListView
             x:Name="modelosListView"
+            AlternationCount="2"
             IsSynchronizedWithCurrentItem="True"
             ItemsSource="{Binding}"
             SelectionChanged="modelosListView_SelectionChanged">
