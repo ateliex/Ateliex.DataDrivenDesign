@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Windows", "src\Ateliex.Windows\Ateliex.Windows.csproj", "{D5FCE03C-4FB5-475B-BBD6-BA4F75211680}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Windows", "Ateliex.Windows\Ateliex.Windows.csproj", "{D5FCE03C-4FB5-475B-BBD6-BA4F75211680}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Web", "src\Ateliex.Web\Ateliex.Web.csproj", "{A7AF7EF0-EAE7-4A5E-8A06-C80E667F381E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Web", "Ateliex.Web\Ateliex.Web.csproj", "{A7AF7EF0-EAE7-4A5E-8A06-C80E667F381E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Camada de Apresentação", "1 - Camada de Apresentação", "{F487EBF7-B916-4C68-AB6D-BEA7552CCC5D}"
 EndProject
@@ -22,11 +22,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration Services", "Integration Services", "{B23B9702-0829-4914-9E9D-92F9FF3274BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Extensions", "src\System.Extensions\System.Extensions.csproj", "{B104DA93-9439-4270-83EF-861D9C8D6493}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Extensions", "System.Extensions\System.Extensions.csproj", "{B104DA93-9439-4270-83EF-861D9C8D6493}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Xaml.Extensions", "src\System.Xaml.Extensions\System.Xaml.Extensions.csproj", "{F83A486E-39AC-4964-80A4-9C145238D315}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Xaml.Extensions", "System.Xaml.Extensions\System.Xaml.Extensions.csproj", "{F83A486E-39AC-4964-80A4-9C145238D315}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Data", "src\Ateliex.Data\Ateliex.Data.csproj", "{F3B3DB18-5AF6-4BEC-B824-04A8A2951913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Data", "Ateliex.Data\Ateliex.Data.csproj", "{F3B3DB18-5AF6-4BEC-B824-04A8A2951913}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Dependências Externas", "4 - Dependências Externas", "{A89AD699-F5FF-42BA-99A3-131CAEAEC590}"
 EndProject
