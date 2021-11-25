@@ -1,4 +1,5 @@
-﻿using Ateliex.Modules;
+﻿using Ateliex.Extensions;
+using Ateliex.Modules;
 using Ateliex.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
