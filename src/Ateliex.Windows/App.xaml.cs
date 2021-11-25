@@ -1,12 +1,15 @@
-﻿using Ateliex.Data;
-using Ateliex.Windows;
-using Microsoft.EntityFrameworkCore;
+﻿using Ateliex.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ateliex
