@@ -1,7 +1,7 @@
 ﻿using Ateliex.Windows;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Ateliex
+namespace Ateliex.Extensions
 {
     public static class WindowsServiceCollectionExtensions
     {
