@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Ateliex
+namespace Ateliex.Modules
 {
     public static class InfrastructureModule
     {

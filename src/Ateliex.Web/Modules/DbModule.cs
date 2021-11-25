@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
 
-namespace Ateliex
+namespace Ateliex.Modules
 {
     public static class DbModule
     {
