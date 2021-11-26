@@ -9,11 +9,6 @@ namespace Ateliex.Data
 
         public DbSet<PlanoComercial> PlanosComerciais { get; set; }
 
-        //public AteliexDbContext()
-        //{
-
-        //}
-
         public AteliexDbContext(DbContextOptions options)
             : base(options)
         {

@@ -1,12 +1,10 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace Ateliex.Modules
+﻿namespace Ateliex.Modules
 {
     public static class InfrastructureModule
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddDbServices();
+            //services.AddDbServices();
 
             //
 

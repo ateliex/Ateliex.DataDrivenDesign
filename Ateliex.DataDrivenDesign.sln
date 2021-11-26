@@ -9,11 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Web", "src\Ateliex.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Apresentação", "1 - Apresentação", "{F487EBF7-B916-4C68-AB6D-BEA7552CCC5D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Dados", "2 - Dados", "{79517817-E22F-40FC-A6C4-D78E6B2524F7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domínio", "3 - Domínio", "{79517817-E22F-40FC-A6C4-D78E6B2524F7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infraestrutura", "3 - Infraestrutura", "{71E464C9-1F85-4DF1-B8B2-A77161B90180}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infraestrutura", "4 - Infraestrutura", "{71E464C9-1F85-4DF1-B8B2-A77161B90180}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Documentação", "6 - Documentação", "{600FCA03-9152-4472-B2F8-ACD04C1D15E2}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - Documentação", "7 - Documentação", "{600FCA03-9152-4472-B2F8-ACD04C1D15E2}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
@@ -24,11 +24,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Extensions", "src\Sy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "System.Xaml.Extensions", "src\System.Xaml.Extensions\System.Xaml.Extensions.csproj", "{F83A486E-39AC-4964-80A4-9C145238D315}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Data", "src\Ateliex.Data\Ateliex.Data.csproj", "{F3B3DB18-5AF6-4BEC-B824-04A8A2951913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ateliex.Domain", "src\Ateliex.Domain\Ateliex.Domain.csproj", "{F3B3DB18-5AF6-4BEC-B824-04A8A2951913}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Dependências Externas", "4 - Dependências Externas", "{A89AD699-F5FF-42BA-99A3-131CAEAEC590}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Dependências Externas", "5 - Dependências Externas", "{A89AD699-F5FF-42BA-99A3-131CAEAEC590}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5 - Cross-Cutting", "5 - Cross-Cutting", "{0917BBB2-8840-4969-A925-056F4400B649}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6 - Cross-Cutting", "6 - Cross-Cutting", "{0917BBB2-8840-4969-A925-056F4400B649}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Aplicação", "2 - Aplicação", "{72A01BC9-6990-4BB7-A56B-94715B1D783B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

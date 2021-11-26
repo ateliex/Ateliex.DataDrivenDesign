@@ -1,18 +1,16 @@
 ﻿using Ateliex.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System.Threading.Tasks;
 
 namespace Ateliex.Modules
 {
     public static class DbModule
     {
-        internal static IServiceCollection AddDbServices(this IServiceCollection services)
+        internal static IServiceCollection AddDbServices(this IServiceCollection services, string connectionString)
         {
-            services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlServer(@"Data Source=Ateliex.db"));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
-            //
+            services.AddDatabaseDeveloperPageExceptionFilter();
 
             //ServiceProvider = services.BuildServiceProvider();
 
@@ -35,7 +33,7 @@ namespace Ateliex.Modules
         {
             using (var serviceScope = serviceScopeFactory.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
+                var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
                 await dbContext.Database.EnsureCreatedAsync();
 
