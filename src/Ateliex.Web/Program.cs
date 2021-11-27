@@ -44,30 +44,10 @@ app.MapRazorPages();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapAreaControllerRoute(
-      name: "CadastroModelosRecursosItem",
-      areaName: "Cadastro",
-      defaults: new { controller = "Modelos" },
-      pattern: "Cadastro/Modelos/{codigo}/Recursos/{id}/action=RecursosItem"
+    endpoints.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
-
-    endpoints.MapAreaControllerRoute(
-      name: "CadastroModelosItem",
-      areaName: "Cadastro",
-      defaults: new { controller = "Modelos" },
-      pattern: "Cadastro/Modelos/{codigo}/{action=Item}"
-    );
-
-    endpoints.MapAreaControllerRoute(
-      name: "AreaCadastro",
-      areaName: "Cadastro",
-      pattern: "Cadastro/{controller}/{action=Index}"
-    );
-
-    //endpoints.MapControllerRoute(
-    //  name: "areas",
-    //  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    //);
 
     endpoints.MapControllerRoute(
       name: "default",

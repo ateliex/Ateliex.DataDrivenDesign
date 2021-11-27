@@ -14,8 +14,8 @@
     <partial name="_Item" model="Model.Modelo" />
 
     <div>
-        <a asp-action="Edicao" asp-route-codigo="@Model.ModeloCodigo">Editar</a> |
-        <a asp-action="Exclusao" asp-route-codigo="@Model.ModeloCodigo">Excluir</a>
+        <a asp-action="Editar" asp-route-id="@Model.ModeloCodigo">Editar</a> |
+        <a asp-action="Excluir" asp-route-id="@Model.ModeloCodigo">Excluir</a>
     </div>
 
     <hr />
@@ -27,11 +27,11 @@
 
         <hr />
 
-        <partial name="_RecursosItem" model="Model" />
+        <partial name="_ItemRecurso" model="Model" />
 
         <div>
-            <a asp-action="RecursosEdicao" asp-route-codigo="@Model.ModeloCodigo" asp-route-id="@Model.Id">Editar</a> |
-            <a asp-action="RecursosExclusao" asp-route-codigo="@Model.ModeloCodigo" asp-route-id="@Model.Id">Excluir</a>
+            <a asp-action="EditarRecurso" asp-route-id="@Model.GetId()">Editar</a> |
+            <a asp-action="ExcluirRecurso" asp-route-id="@Model.GetId()">Excluir</a>
         </div>
 
         <hr />

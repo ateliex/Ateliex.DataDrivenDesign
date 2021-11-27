@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ateliex.Areas.Cadastro.Models;
 using Ateliex.Data;
+using Ateliex.Areas.Cadastro.Extensions;
 
 namespace Ateliex.Areas.Cadastro.Controllers
 {
@@ -27,9 +28,11 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(await _db.Modelos.ToListAsync());
         }
 
-        // GET: Cadastro/Modelos/Item/5
-        public async Task<IActionResult> Item(string codigo)
+        // GET: Cadastro/Modelos/Detalhar/5
+        public async Task<IActionResult> Detalhar(string id)
         {
+            string codigo = id.GetCodigo();
+
             if (codigo == null)
             {
                 return NotFound();
@@ -47,22 +50,20 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Novo
-        [Route("[area]/[controller]/Novo")]
-        public IActionResult Novo()
+        // GET: Cadastro/Modelos/Criar
+        public IActionResult Criar()
         {
             var modelo = new Modelo();
 
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Novo
+        // POST: Cadastro/Modelos/Criar
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("[area]/[controller]/Novo")]
-        public async Task<IActionResult> Novo([Bind("Codigo,Nome,State")] Modelo modelo)
+        public async Task<IActionResult> Criar([Bind("Codigo,Nome,State")] Modelo modelo)
         {
             if (ModelState.IsValid)
             {
@@ -73,10 +74,13 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Edicao/5
-        public async Task<IActionResult> Edicao(string codigo)
+        // GET: Cadastro/Modelos/Editar/5
+        public async Task<IActionResult> Editar(string id)
         {
+            string codigo = id.GetCodigo();
+
             Modelo modelo;
+
             if (codigo == null)
             {
                 return NotFound();
@@ -93,13 +97,15 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Edicao/5
+        // POST: Cadastro/Modelos/Editar/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edicao(string codigo, [Bind("Codigo,Nome,State")] Modelo modelo)
+        public async Task<IActionResult> Editar(string id, [Bind("Codigo,Nome,State")] Modelo modelo)
         {
+            string codigo = id.GetCodigo();
+
             if (codigo != modelo.Codigo)
             {
                 return NotFound();
@@ -137,9 +143,11 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Exclusao/5
-        public async Task<IActionResult> Exclusao(string codigo)
+        // GET: Cadastro/Modelos/Excluir/5
+        public async Task<IActionResult> Excluir(string id)
         {
+            string codigo = id.GetCodigo();
+
             if (codigo == null)
             {
                 return NotFound();
@@ -147,6 +155,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
 
             var modelo = await _db.Modelos
                 .FirstOrDefaultAsync(m => m.Codigo == codigo);
+
             if (modelo == null)
             {
                 return NotFound();
@@ -155,22 +164,30 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Exclusao/5
-        [HttpPost, ActionName("Exclusao")]
+        // POST: Cadastro/Modelos/Excluir/5
+        [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ExclusaoConfirmada(string codigo)
+        public async Task<IActionResult> ConfirmarExclusao(string id)
         {
+            string codigo = id.GetCodigo();
+
             var modelo = await _db.Modelos.FindAsync(codigo);
+
             _db.Modelos.Remove(modelo);
+            
             await _db.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 
         #region Recursos
 
-        [Route("[area]/[controller]/{codigo}/Recursos/{id}")]
-        public async Task<IActionResult> RecursosItem(string codigo, int id)
+        public async Task<IActionResult> DetalharRecurso(string id)
         {
+            string codigo = id.GetCodigo();
+
+            int? idRecurso = id.GetIdRecurso();
+
             if (codigo == null)
             {
                 return NotFound();
@@ -178,7 +195,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
 
             var recurso = await _db.Recursos
                 .Include(r => r.Modelo)
-                .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == id);
+                .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == idRecurso);
 
             if (recurso == null)
             {
@@ -188,9 +205,10 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(recurso);
         }
 
-        [Route("[area]/[controller]/{codigo}/Recursos/RecursosNovo")]
-        public async Task<IActionResult> RecursosNovo(string codigo)
+        public async Task<IActionResult> CriarRecurso(string id)
         {
+            string codigo = id.GetCodigo();
+
             var modelo = await _db.Modelos
                 .Include(m => m.Recursos)
                 .FirstOrDefaultAsync(m => m.Codigo == codigo);
@@ -205,9 +223,10 @@ namespace Ateliex.Areas.Cadastro.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("[area]/[controller]/{codigo}/Recursos/RecursosNovo")]
-        public async Task<IActionResult> RecursosNovo([Bind("ModeloCodigo,Id,Tipo,Descricao,Custo,Unidades")] Recurso recurso)
+        public async Task<IActionResult> CriarRecurso(string id, [Bind("ModeloCodigo,Id,Tipo,Descricao,Custo,Unidades")] Recurso recurso)
         {
+            string codigo = id.GetCodigo();
+
             if (ModelState.IsValid)
             {
                 _db.Add(recurso);
@@ -217,9 +236,12 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(recurso);
         }
 
-        [Route("[area]/[controller]/{codigo}/Recursos/{id}/RecursosEdicao")]
-        public async Task<IActionResult> RecursosEdicao(string codigo, int? id)
+        public async Task<IActionResult> EditarRecurso(string id)
         {
+            string codigo = id.GetCodigo();
+
+            int? idRecurso = id.GetIdRecurso();
+
             Recurso recurso;
 
             if (codigo == null || id == null)
@@ -230,7 +252,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
             {
                 recurso = await _db.Recursos
                     .Include(r => r.Modelo)
-                    .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == id.Value);
+                    .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == idRecurso.Value);
 
                 if (recurso == null)
                 {
@@ -243,10 +265,13 @@ namespace Ateliex.Areas.Cadastro.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("[area]/[controller]/{codigo}/Recursos/{id}/RecursosEdicao")]
-        public async Task<IActionResult> RecursosEdicao(string codigo, int? id, [Bind("ModeloCodigo,Id,Tipo,Descricao,Custo,Unidades")] Recurso recurso)
+        public async Task<IActionResult> EditarRecurso(string id, [Bind("ModeloCodigo,Id,Tipo,Descricao,Custo,Unidades")] Recurso recurso)
         {
-            if (codigo != recurso.ModeloCodigo || id != recurso.Id)
+            string codigo = id.GetCodigo();
+
+            int? idRecurso = id.GetIdRecurso();
+
+            if (codigo != recurso.ModeloCodigo || idRecurso != recurso.Id)
             {
                 return NotFound();
             }
@@ -283,9 +308,12 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(recurso);
         }
 
-        [Route("[area]/[controller]/{codigo}/Recursos/{id}/RecursosExclusao")]
-        public async Task<IActionResult> RecursosExclusao(string codigo, int? id)
+        public async Task<IActionResult> ExcluirRecurso(string id)
         {
+            string codigo = id.GetCodigo();
+
+            int? idRecurso = id.GetIdRecurso();
+
             if (codigo == null || id == null)
             {
                 return NotFound();
@@ -293,7 +321,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
 
             var recurso = await _db.Recursos
                 .Include(r => r.Modelo)
-                .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == id);
+                .FirstOrDefaultAsync(r => r.ModeloCodigo == codigo && r.Id == idRecurso);
 
             if (recurso == null)
             {
@@ -303,14 +331,20 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(recurso);
         }
 
-        [HttpPost, ActionName("RecursosExclusao")]
+        [HttpPost, ActionName("ExcluirRecurso")]
         [ValidateAntiForgeryToken]
-        [Route("[area]/[controller]/{codigo}/Recursos/{id}/RecursosExclusao")]
-        public async Task<IActionResult> RecursosExclusaoConfirmada(string codigo, int? id)
+        public async Task<IActionResult> ConfirmarExclusaoRecurso(string id)
         {
-            var recurso = await _db.Recursos.FindAsync(codigo, id);
+            string codigo = id.GetCodigo();
+
+            int? idRecurso = id.GetIdRecurso();
+
+            var recurso = await _db.Recursos.FindAsync(codigo, idRecurso);
+
             _db.Recursos.Remove(recurso);
+            
             await _db.SaveChangesAsync();
+            
             return RedirectToAction(nameof(Index));
         }
 

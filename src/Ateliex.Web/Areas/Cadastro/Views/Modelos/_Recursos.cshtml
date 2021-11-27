@@ -31,7 +31,7 @@
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td>
-                <a asp-action="RecursosItem" asp-route-codigo="@item.ModeloCodigo" asp-route-id="@item.Id">
+                <a asp-action="DetalharRecurso" asp-route-id="@item.GetId()">
                     @Html.DisplayFor(modelItem => item.Descricao)
                 </a>
             </td>
@@ -42,8 +42,8 @@
                 @Html.DisplayFor(modelItem => item.Unidades)
             </td>
             <td>
-                <a asp-action="RecursosEdicao" asp-route-codigo="@item.ModeloCodigo" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="RecursosExclusao" asp-route-codigo="@item.ModeloCodigo" asp-route-id="@item.Id">Excluir</a>
+                <a asp-action="EditarRecurso" asp-route-id="@item.GetId()">Editar</a> |
+                <a asp-action="ExcluirRecurso" asp-route-id="@item.GetId()">Excluir</a>
             </td>
         </tr>
     }

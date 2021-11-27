@@ -7,7 +7,7 @@
 <h1>Modelos</h1>
 
 <p>
-    <a asp-action="Novo">Criar Novo</a>
+    <a asp-action="Criar">Criar Novo</a>
 </p>
 
 <table class="table">
@@ -33,7 +33,7 @@
                     @Html.DisplayFor(modelItem => item.Codigo)
                 </td>
                 <td>
-                    <a asp-action="Item" asp-route-codigo="@item.Codigo">
+                    <a asp-action="Detalhar" asp-route-id="@item.Codigo">
                         @Html.DisplayFor(modelItem => item.Nome)
                     </a>
                 </td>
@@ -41,8 +41,8 @@
                     @Html.DisplayFor(modelItem => item.CustoDeProducao)
                 </td>
                 <td>
-                    <a asp-action="Edicao" asp-route-codigo="@item.Codigo">Editar</a> |
-                    <a asp-action="Exclusao" asp-route-codigo="@item.Codigo">Excluir</a>
+                    <a asp-action="Editar" asp-route-id="@item.Codigo">Editar</a> |
+                    <a asp-action="Excluir" asp-route-id="@item.Codigo">Excluir</a>
                 </td>
             </tr>
         }
