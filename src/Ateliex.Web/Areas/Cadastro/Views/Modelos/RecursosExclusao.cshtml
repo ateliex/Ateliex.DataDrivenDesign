@@ -1,0 +1,44 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Recurso
+
+@{
+    ViewData["Title"] = $"Exclusão - {Model.Id} - Recursos - {Model.ModeloCodigo} - Modelos";
+}
+
+<h1>Modelos</h1>
+
+@*<h3>Tem certeza que deseja excluir este?</h3>*@
+
+<div>
+    <h4>@Model.ModeloCodigo</h4>
+
+    <hr />
+
+    <partial name="_Item" model="Model.Modelo" />
+
+    <div>
+        <a asp-action="Edicao" asp-route-codigo="@Model.ModeloCodigo">Editar</a> |
+        <a asp-action="Exclusao" asp-route-codigo="@Model.ModeloCodigo">Excluir</a>
+    </div>
+
+    <hr />
+
+    <h2>Recursos</h2>
+
+    <div>
+        <h4>Exclusão - @Model.Id</h4>
+
+        <hr />
+
+        <partial name="_RecursosItem" model="Model" />
+
+        <form asp-action="RecursosExclusao">
+            @*<input type="hidden" asp-for="Codigo" />*@
+
+            <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" />
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>

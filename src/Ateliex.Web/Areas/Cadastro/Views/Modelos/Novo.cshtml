@@ -1,0 +1,35 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Modelo
+
+@{
+    ViewData["Title"] = "Novo - Modelos";
+}
+
+<h1>Modelos</h1>
+
+<div>
+    <h4>Novo</h4>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Novo">
+                <partial name="_Form" model="Model" />
+
+                <div class="form-group">
+                    <input type="submit" value="Criar" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

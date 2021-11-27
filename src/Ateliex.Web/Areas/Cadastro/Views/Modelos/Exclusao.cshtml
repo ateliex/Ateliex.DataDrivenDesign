@@ -1,0 +1,27 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Modelo
+
+@{
+    ViewData["Title"] = $"Exclusão - {Model.Codigo} - Modelo";
+}
+
+<h1>Modelos</h1>
+
+@*<h3>Tem certeza que deseja excluir este?</h3>*@
+
+<div>
+    <h4>Exclusão - @Model.Codigo</h4>
+
+    <hr />
+
+    <partial name="_Item" model="Model" />
+
+    <form asp-action="Exclusao">
+        @*<input type="hidden" asp-for="Codigo" />*@
+
+        <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" />
+    </form>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>

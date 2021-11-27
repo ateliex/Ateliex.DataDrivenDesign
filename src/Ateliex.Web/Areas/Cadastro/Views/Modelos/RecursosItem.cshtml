@@ -1,0 +1,45 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Recurso
+
+@{
+    ViewData["Title"] = $"Item - {Model.Id} - Recursos - {Model.ModeloCodigo} - Modelos";
+}
+
+<h1>Modelos</h1>
+
+<div>
+    <h4>@Model.ModeloCodigo</h4>
+
+    <hr />
+
+    <partial name="_Item" model="Model.Modelo" />
+
+    <div>
+        <a asp-action="Edicao" asp-route-codigo="@Model.ModeloCodigo">Editar</a> |
+        <a asp-action="Exclusao" asp-route-codigo="@Model.ModeloCodigo">Excluir</a>
+    </div>
+
+    <hr />
+
+    <h2>Recursos</h2>
+
+    <div>
+        <h4>Item - @Model.Id</h4>
+
+        <hr />
+
+        <partial name="_RecursosItem" model="Model" />
+
+        <div>
+            <a asp-action="RecursosEdicao" asp-route-codigo="@Model.ModeloCodigo" asp-route-id="@Model.Id">Editar</a> |
+            <a asp-action="RecursosExclusao" asp-route-codigo="@Model.ModeloCodigo" asp-route-id="@Model.Id">Excluir</a>
+        </div>
+
+        <hr />
+
+        <h7>Não há mais detalhes deste item</h7>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>

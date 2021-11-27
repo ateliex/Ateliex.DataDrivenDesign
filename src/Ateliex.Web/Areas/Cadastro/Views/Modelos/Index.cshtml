@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.Modelo>
+
+@{
+    ViewData["Title"] = "Modelos";
+}
+
+<h1>Modelos</h1>
+
+<p>
+    <a asp-action="Novo">Criar Novo</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CustoDeProducao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    <a asp-action="Item" asp-route-codigo="@item.Codigo">
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CustoDeProducao)
+                </td>
+                <td>
+                    <a asp-action="Edicao" asp-route-codigo="@item.Codigo">Editar</a> |
+                    <a asp-action="Exclusao" asp-route-codigo="@item.Codigo">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
