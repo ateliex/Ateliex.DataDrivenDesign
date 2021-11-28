@@ -4,29 +4,27 @@
     ViewData["Title"] = $"Edição - {Model.Codigo} - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Editar Modelo</h1>
 
-<div>
-    <h4>Edição - @Model.Codigo</h4>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Index">Modelos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Codigo</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <h5>Modelo @Model.Codigo</h5>
 
     <hr />
 
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Editar">
-                <partial name="_Form" model="Model" />
+    <form asp-action="Editar">
+        <partial name="_Form" model="Model" />
 
-                <div class="form-group">
-                    <input type="submit" value="Salvar" class="btn btn-primary" /> |
-                    <a asp-action="Excluir" asp-route-id="@Model.Codigo">Excluir</a>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Voltar para lista</a>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>&nbsp;Salvar</button>&nbsp;
+        <a asp-action="Excluir" asp-route-id="@Model.Codigo">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+    </form>
 </div>
 
 @section Scripts {

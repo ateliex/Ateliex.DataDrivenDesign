@@ -4,24 +4,18 @@
     ViewData["Title"] = $"Exclusão - {Model.Codigo} - Modelo";
 }
 
-<h1>Modelos</h1>
-
-@*<h3>Tem certeza que deseja excluir este?</h3>*@
+<h1>Excluir Modelo?</h1>
 
 <div>
-    <h4>Exclusão - @Model.Codigo</h4>
+    <h5>Modelo @Model.Codigo</h5>
 
     <hr />
 
     <partial name="_Item" model="Model" />
 
     <form asp-action="Excluir">
-        @*<input type="hidden" asp-for="Codigo" />*@
-
-        <input type="submit" value="Confirmar Exclusão" class="btn btn-danger" />
+        <button type="submit" class="btn btn-danger">
+            <i class="bi bi-exclamation-triangle"></i>&nbsp;Confirmar Exclusão
+        </button>
     </form>
-</div>
-
-<div>
-    <a asp-action="Index">Voltar para lista</a>
 </div>

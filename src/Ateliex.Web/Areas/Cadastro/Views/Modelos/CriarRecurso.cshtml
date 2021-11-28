@@ -4,10 +4,20 @@
     ViewData["Title"] = $"Novo - Recursos - {Model.ModeloCodigo} - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Criar Recurso de Modelo</h1>
 
-<div>
-    <h4>@Model.ModeloCodigo</h4>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Index">Modelos</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Detalhar" asp-route-id="@Model.ModeloCodigo">@Model.ModeloCodigo</a></li>
+        <li class="breadcrumb-item"><a>Recursos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Novo</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <h5>Modelo @Model.ModeloCodigo</h5>
 
     <hr />
 
@@ -22,8 +32,8 @@
 
     <h2>Recursos</h2>
 
-    <div>
-        <h4>Novo</h4>
+    <div class="container">
+        <h5>Novo</h5>
 
         <hr />
 
@@ -41,6 +51,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Voltar para lista</a>
-</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

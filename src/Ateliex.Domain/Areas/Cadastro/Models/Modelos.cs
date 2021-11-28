@@ -10,12 +10,16 @@ namespace Ateliex.Areas.Cadastro.Models
     public class Modelo : Entity
     {
         [Key]
+        [DisplayName("Código")]
         [Required(ErrorMessage = "Teste: Código Obrigatório")]
         public string Codigo { get; set; }
 
+        [DisplayName("Nome")]
         [Required(ErrorMessage = "Teste: Nome Obrigatório")]
         public string Nome { get; set; }
 
+        [DisplayName("Custo de Produção")]
+        [ReadOnly(true)]
         public decimal CustoDeProducao
         {
             get
@@ -51,14 +55,19 @@ namespace Ateliex.Areas.Cadastro.Models
     {
         public virtual Modelo Modelo { get; set; }
 
+        [DisplayName("Id")]
         public int Id { get; set; }
 
+        [DisplayName("Tipo")]
         public TipoDeRecurso Tipo { get; set; }
 
+        [DisplayName("Descrição")]
         public string Descricao { get; set; }
 
+        [DisplayName("Custo")]
         public decimal Custo { get; set; }
 
+        [DisplayName("Unidades")]
         public int Unidades { get; set; }
 
         public decimal CustoPorUnidade

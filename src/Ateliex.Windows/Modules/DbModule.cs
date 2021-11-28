@@ -35,11 +35,11 @@ namespace Ateliex.Modules
         {
             using (var serviceScope = serviceScopeFactory.CreateScope())
             {
-                var dbContext = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
+                var db = serviceScope.ServiceProvider.GetService<AteliexDbContext>();
 
-                await dbContext.Database.EnsureCreatedAsync();
+                await db.Database.EnsureCreatedAsync();
 
-                await dbContext.Database.MigrateAsync();
+                await db.Database.MigrateAsync();
             }
         }
     }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Novo - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Criar Modelo</h1>
 
 <div>
     <h4>Novo</h4>
@@ -24,12 +24,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Voltar para lista</a>
-</div>
-
 @section Scripts {
     @{
-    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }

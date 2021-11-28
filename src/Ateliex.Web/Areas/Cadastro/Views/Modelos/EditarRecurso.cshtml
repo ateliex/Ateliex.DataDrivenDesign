@@ -4,7 +4,7 @@
     ViewData["Title"] = $"Edição - {Model.Id} - Recursos - {Model.ModeloCodigo} - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Editar Recurso de Modelo</h1>
 
 <div>
     <h4>@Model.ModeloCodigo</h4>
@@ -42,6 +42,8 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Voltar para lista</a>
-</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

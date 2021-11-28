@@ -4,30 +4,38 @@
     ViewData["Title"] = $"Item - {Model.Codigo} - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Detalhar Modelo</h1>
 
-<div>
-    <h4>Item - @Model.Codigo</h4>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Index">Modelos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Codigo</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <h5>Modelo @Model.Codigo</h5>
 
     <hr />
 
     <partial name="_Item" model="Model" />
 
-    <div>
-        <a asp-action="Editar" asp-route-id="@Model.Codigo">Editar</a> |
-        <a asp-action="Excluir" asp-route-id="@Model.Codigo">Excluir</a>
-    </div>
+    <p>
+        <a asp-action="Editar" asp-route-id="@Model.Codigo">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+        <a asp-action="Excluir" asp-route-id="@Model.Codigo">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+    </p>
 
     <hr />
 
     <h2>Recursos</h2>
 
-    <div>
+    <div class="container">
         <p>
-            <a asp-action="CriarRecurso" asp-route-id="@Model.Codigo">Criar Novo</a>
+            <a asp-action="CriarRecurso" asp-route-id="@Model.Codigo">Criar Novo<i class="bi bi-link-45deg"></i></a>
         </p>
 
-        <table class="table">
+        <table class="table table-striped table-hover">
             <partial name="_Recursos" model="Model.Recursos" />
         </table>
 
@@ -35,8 +43,4 @@
 
         <h7>Não há mais detalhes deste item</h7>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Voltar para lista</a>
 </div>

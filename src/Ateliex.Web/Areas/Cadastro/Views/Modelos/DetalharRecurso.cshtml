@@ -4,42 +4,50 @@
     ViewData["Title"] = $"Item - {Model.Id} - Recursos - {Model.ModeloCodigo} - Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Detalhar Recurso de Modelos</h1>
 
-<div>
-    <h4>@Model.ModeloCodigo</h4>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Index">Modelos</a></li>
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Modelos" asp-action="Detalhar" asp-route-id="@Model.ModeloCodigo">@Model.ModeloCodigo</a></li>
+        <li class="breadcrumb-item"><a>Recursos</a></li>
+        <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+    </ol>
+</nav>
+
+<div class="container">
+    <h5>Modelo @Model.ModeloCodigo</h5>
 
     <hr />
 
-    <partial name="_Item" model="Model.Modelo" />
+    <div class="container">
+        <partial name="_Item" model="Model.Modelo" />
 
-    <div>
-        <a asp-action="Editar" asp-route-id="@Model.ModeloCodigo">Editar</a> |
-        <a asp-action="Excluir" asp-route-id="@Model.ModeloCodigo">Excluir</a>
+        <a asp-action="Editar" asp-route-id="@Model.ModeloCodigo">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+        <a asp-action="Excluir" asp-route-id="@Model.ModeloCodigo">Excluir&nbsp;<i class="bi bi-trash"></i></a>
     </div>
 
     <hr />
 
     <h2>Recursos</h2>
 
-    <div>
-        <h4>Item - @Model.Id</h4>
+    <div class="container">
+        <h5>Recurso @Model.Id</h5>
 
         <hr />
 
-        <partial name="_ItemRecurso" model="Model" />
+        <div class="container">
+            <partial name="_ItemRecurso" model="Model" />
+        </div>
 
         <div>
-            <a asp-action="EditarRecurso" asp-route-id="@Model.GetId()">Editar</a> |
-            <a asp-action="ExcluirRecurso" asp-route-id="@Model.GetId()">Excluir</a>
+            <a asp-action="EditarRecurso" asp-route-id="@Model.GetId()">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+            <a asp-action="ExcluirRecurso" asp-route-id="@Model.GetId()">Excluir&nbsp;<i class="bi bi-trash"></i></a>
         </div>
 
         <hr />
 
         <h7>Não há mais detalhes deste item</h7>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Voltar para lista</a>
 </div>

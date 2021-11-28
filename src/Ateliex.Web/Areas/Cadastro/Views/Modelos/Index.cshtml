@@ -4,15 +4,16 @@
     ViewData["Title"] = "Modelos";
 }
 
-<h1>Modelos</h1>
+<h1>Cadastro de Modelos</h1>
 
 <p>
     <a asp-action="Criar">Criar Novo</a>
 </p>
 
-<table class="table">
-    <thead>
+<table class="table table-striped table-hover">
+    <thead class="table-light">
         <tr>
+            <th>#</th>
             <th>
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
@@ -22,27 +23,27 @@
             <th>
                 @Html.DisplayNameFor(model => model.CustoDeProducao)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
+                <th>
+                    <a asp-action="Editar" asp-route-id="@item.Codigo"><i class="bi bi-pencil"></i></a>&nbsp;
+                    <a asp-action="Excluir" asp-route-id="@item.Codigo"><i class="bi bi-trash"></i></a>
+                </th>
+                <th>
                     @Html.DisplayFor(modelItem => item.Codigo)
-                </td>
+                </th>
                 <td>
                     <a asp-action="Detalhar" asp-route-id="@item.Codigo">
                         @Html.DisplayFor(modelItem => item.Nome)
+                        <i class="bi bi-link-45deg"></i>
                     </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CustoDeProducao)
-                </td>
-                <td>
-                    <a asp-action="Editar" asp-route-id="@item.Codigo">Editar</a> |
-                    <a asp-action="Excluir" asp-route-id="@item.Codigo">Excluir</a>
                 </td>
             </tr>
         }

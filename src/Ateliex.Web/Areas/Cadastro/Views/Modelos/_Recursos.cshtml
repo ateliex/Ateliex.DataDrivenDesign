@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.Recurso>
 
-<thead>
+<thead class="table-light">
     <tr>
+        <th>#</th>
         <th>
             @Html.DisplayNameFor(model => model.Id)
         </th>
@@ -17,22 +18,26 @@
         <th>
             @Html.DisplayNameFor(model => model.Unidades)
         </th>
-        <th></th>
     </tr>
 </thead>
 <tbody>
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            <th>
+                <a asp-action="EditarRecurso" asp-route-id="@item.GetId()"><i class="bi bi-pencil"></i></a>&nbsp;
+                <a asp-action="ExcluirRecurso" asp-route-id="@item.GetId()"><i class="bi bi-trash"></i></a>
+            </th>
+            <th>
                 @Html.DisplayFor(modelItem => item.Id)
-            </td>
+            </th>
             <td>
                 @Html.DisplayFor(modelItem => item.Tipo)
             </td>
             <td>
                 <a asp-action="DetalharRecurso" asp-route-id="@item.GetId()">
                     @Html.DisplayFor(modelItem => item.Descricao)
+                    <i class="bi bi-link-45deg"></i>
                 </a>
             </td>
             <td>
@@ -40,10 +45,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Unidades)
-            </td>
-            <td>
-                <a asp-action="EditarRecurso" asp-route-id="@item.GetId()">Editar</a> |
-                <a asp-action="ExcluirRecurso" asp-route-id="@item.GetId()">Excluir</a>
             </td>
         </tr>
     }

@@ -1,18 +1,35 @@
-html {
-  font-size: 14px;
+/*html {
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 html {
-  position: relative;
-  min-height: 100%;
-}
+    position: relative;
+    min-height: 100%;
+}*/
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+a, a:hover, a:visited, a:focus {
+    text-decoration: none;
+}
+
+dl {
+    margin-bottom: 0;
+}
+
+dt {
+    background-color: #f8f9fa;
+    padding-top: 10px;
+}
+
+dd {
+    padding-top: 10px;
 }

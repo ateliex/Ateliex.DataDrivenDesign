@@ -20,7 +20,7 @@ public class ApplicationDbContext : IdentityDbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
+        
         builder.Entity<IdentityRole>()
             .ToTable("Roles", "identity");
 
