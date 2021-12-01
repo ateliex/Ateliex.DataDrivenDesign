@@ -22,7 +22,7 @@ a, a:hover, a:visited, a:focus {
 }
 
 dl {
-    margin-bottom: 0;
+    /*margin-bottom: 0;*/
 }
 
 dt {
@@ -32,4 +32,9 @@ dt {
 
 dd {
     padding-top: 10px;
+}
+
+th:first-child {
+    width: 10%;
+    white-space: nowrap;
 }

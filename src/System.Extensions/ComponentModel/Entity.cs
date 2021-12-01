@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.CompilerServices;
 
 namespace System.ComponentModel
@@ -62,6 +64,7 @@ namespace System.ComponentModel
             changed.Invoke(this, new PropertyChangedEventArgs("State"));
         }
 
+        [NotMapped]
         public EntityState State { get; internal protected set; }
 
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();

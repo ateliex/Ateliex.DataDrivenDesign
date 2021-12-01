@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Ateliex.Models
 {
-    public class PlanoComercial : Entity
+    public class PlanoComercial : DataEntity
     {
         [Key]
         public string Codigo { get; set; }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ateliex.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211126013610_CreateModelosEntities")]
+    [Migration("20211205212023_CreateModelosEntities")]
     partial class CreateModelosEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,139 +26,188 @@ namespace Ateliex.Data.Migrations
 
             modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.Modelo", b =>
                 {
-                    b.Property<string>("Codigo")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.HasKey("Codigo");
+                    b.HasKey("Id");
 
                     b.ToTable("Modelos", "cadastro");
 
                     b.HasData(
                         new
                         {
-                            Codigo = "TM01",
+                            Id = 1,
                             Nome = "Tati Model 01"
                         },
                         new
                         {
-                            Codigo = "TM02",
+                            Id = 2,
                             Nome = "Tati Model 02"
                         },
                         new
                         {
-                            Codigo = "TM03",
+                            Id = 3,
                             Nome = "Tati Model 03"
                         },
                         new
                         {
-                            Codigo = "TM04",
+                            Id = 4,
                             Nome = "Tati Model 04"
                         },
                         new
                         {
-                            Codigo = "TM05",
+                            Id = 5,
                             Nome = "Tati Model 05"
                         },
                         new
                         {
-                            Codigo = "TM06",
+                            Id = 6,
                             Nome = "Tati Model 06"
                         },
                         new
                         {
-                            Codigo = "TM07",
+                            Id = 7,
                             Nome = "Tati Model 07"
                         },
                         new
                         {
-                            Codigo = "TM08",
+                            Id = 8,
                             Nome = "Tati Model 08"
                         },
                         new
                         {
-                            Codigo = "TM09",
+                            Id = 9,
                             Nome = "Tati Model 09"
                         },
                         new
                         {
-                            Codigo = "TM10",
+                            Id = 10,
                             Nome = "Tati Model 10"
                         });
                 });
 
-            modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.Recurso", b =>
+            modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.ModeloRecurso", b =>
                 {
-                    b.Property<string>("ModeloCodigo")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
                     b.Property<decimal>("Custo")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(14, 2)
+                        .HasColumnType("decimal(14,2)");
 
                     b.Property<string>("Descricao")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
-                    b.Property<int>("Tipo")
+                    b.Property<int>("ModeloId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TipoId")
                         .HasColumnType("int");
 
                     b.Property<int>("Unidades")
                         .HasColumnType("int");
 
-                    b.HasKey("ModeloCodigo", "Id");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ModeloId");
+
+                    b.HasIndex("TipoId");
 
                     b.ToTable("ModeloRecursos", "cadastro");
 
                     b.HasData(
                         new
                         {
-                            ModeloCodigo = "TM01",
                             Id = 1,
                             Custo = 20m,
                             Descricao = "Tecido",
-                            Tipo = 0,
+                            ModeloId = 1,
+                            TipoId = 1,
                             Unidades = 2
                         },
                         new
                         {
-                            ModeloCodigo = "TM01",
                             Id = 2,
                             Custo = 4m,
                             Descricao = "Linha",
-                            Tipo = 0,
+                            ModeloId = 1,
+                            TipoId = 1,
                             Unidades = 20
                         },
                         new
                         {
-                            ModeloCodigo = "TM01",
                             Id = 3,
                             Custo = 5m,
                             Descricao = "Outros",
-                            Tipo = 0,
+                            ModeloId = 1,
+                            TipoId = 1,
                             Unidades = 1
                         },
                         new
                         {
-                            ModeloCodigo = "TM01",
                             Id = 4,
                             Custo = 100m,
                             Descricao = "Transporte",
-                            Tipo = 1,
+                            ModeloId = 1,
+                            TipoId = 2,
                             Unidades = 50
                         },
                         new
                         {
-                            ModeloCodigo = "TM01",
                             Id = 5,
                             Custo = 5m,
                             Descricao = "Costureira",
-                            Tipo = 2,
+                            ModeloId = 1,
+                            TipoId = 3,
                             Unidades = 1
+                        });
+                });
+
+            modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ModeloRecursoTipos", "cadastro");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Material"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Transporte"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Humano"
                         });
                 });
 
@@ -364,15 +413,23 @@ namespace Ateliex.Data.Migrations
                     b.ToTable("UserTokens", "identity");
                 });
 
-            modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.Recurso", b =>
+            modelBuilder.Entity("Ateliex.Areas.Cadastro.Models.ModeloRecurso", b =>
                 {
                     b.HasOne("Ateliex.Areas.Cadastro.Models.Modelo", "Modelo")
                         .WithMany("Recursos")
-                        .HasForeignKey("ModeloCodigo")
+                        .HasForeignKey("ModeloId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo", "Tipo")
+                        .WithMany()
+                        .HasForeignKey("TipoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Modelo");
+
+                    b.Navigation("Tipo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

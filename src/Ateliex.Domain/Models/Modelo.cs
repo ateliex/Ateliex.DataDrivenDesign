@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Ateliex.Models
 {
-    public class Modelo : Entity
+    public class Modelo : DataEntity
     {
         [Key]
         [Required(ErrorMessage = "Teste: Código Obrigatório")]

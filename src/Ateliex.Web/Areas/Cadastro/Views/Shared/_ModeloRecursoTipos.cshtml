@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo>
+
+<thead class="table-light">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipos" asp-action="Detalhar" asp-route-id="@item.Id"><i class="bi bi-link-45deg"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipos" asp-action="Editar" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipos" asp-action="Excluir" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Id)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+        </tr>
+    }
+</tbody>

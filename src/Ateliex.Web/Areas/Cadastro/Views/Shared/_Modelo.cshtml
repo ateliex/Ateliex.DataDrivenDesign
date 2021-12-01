@@ -2,24 +2,17 @@
 
 <dl class="row">
     <dt class="col-sm-3">
-        @Html.DisplayNameFor(model => model.Codigo)
+        @Html.DisplayNameFor(model => model.Id)
     </dt>
     <dd class="col-sm-9">
-        @Html.DisplayFor(model => model.Codigo)
+        @Html.DisplayFor(model => model.Id)
     </dd>
-</dl>
-<dl class="row">
     <dt class="col-sm-3">
         @Html.DisplayNameFor(model => model.Nome)
     </dt>
     <dd class="col-sm-9">
-        <a asp-action="Detalhar" asp-route-id="@Model.Codigo">
-            @Html.DisplayFor(model => model.Nome)
-            <i class="bi bi-link-45deg"></i>
-        </a>
+        @Html.DisplayFor(model => model.Nome)
     </dd>
-</dl>
-<dl class="row">
     <dt class="col-sm-3">
         @Html.DisplayNameFor(model => model.CustoDeProducao)
     </dt>
@@ -27,3 +20,8 @@
         @Html.DisplayFor(model => model.CustoDeProducao)
     </dd>
 </dl>
+
+<p>
+    <a asp-area="Cadastro" asp-controller="Modelos" asp-action="Editar" asp-route-id="@Model.Id">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+    <a asp-area="Cadastro" asp-controller="Modelos" asp-action="Excluir" asp-route-id="@Model.Id">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+</p>
