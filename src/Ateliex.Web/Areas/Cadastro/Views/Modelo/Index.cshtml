@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.Modelo>
+
+@{
+    ViewData["Title"] = $"Cadastro - Modelo";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item">Modelo</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Cadastro de Modelo</h1>
+
+    <div class="container">
+        <p>
+            <a asp-action="Create">Criar Novo<i class="bi bi-plus-circle"></i></a>
+        </p>
+
+        <partial name="List/_Modelo" model="Model" />
+    </div>
+</section>

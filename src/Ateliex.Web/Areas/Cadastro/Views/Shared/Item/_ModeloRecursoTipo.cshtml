@@ -1,0 +1,26 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo
+
+@{
+    var parent = (string?)ViewData["Parent"];
+}
+
+<dl class="row">
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Nome)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Nome)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.CustoDeProducao)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.CustoDeProducao)
+    </dd>
+</dl>

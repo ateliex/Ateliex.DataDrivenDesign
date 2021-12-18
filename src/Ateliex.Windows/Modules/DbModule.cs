@@ -10,7 +10,7 @@ namespace Ateliex.Modules
         internal static IServiceCollection AddDbServices(this IServiceCollection services)
         {
             services.AddDbContext<AteliexDbContext>(options =>
-                options.UseSqlite(@"Data Source=Ateliex.db"));
+                options.UseSqlite(@"Data Source=Ateliex.db", b => b.MigrationsAssembly("Ateliex.EntityFrameworkCore.Sqlite")), ServiceLifetime.Singleton);
 
             //
 

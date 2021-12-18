@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo>
+
+@{
+    var parent = (string?)ViewData["Parent"];
+}
+
+<div class="row table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustoDeProducao)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>
+                        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-link-45deg"></i></a>
+                        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Edit" asp-route-id="@item.Id" asp-route-parent="@parent"><i class="bi bi-pencil"></i></a>
+                        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Delete" asp-route-id="@item.Id" asp-route-parent="@parent" class="link-danger"><i class="bi bi-trash"></i></a>
+                    </th>
+                    <th>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CustoDeProducao)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

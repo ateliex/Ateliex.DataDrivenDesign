@@ -1,17 +1,11 @@
 ﻿using Ateliex.Extensions;
 using Ateliex.Modules;
-using Ateliex.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Ateliex
@@ -45,7 +39,7 @@ namespace Ateliex
 
             ConfigureServices(serviceCollection);
 
-            ServiceProvider = serviceCollection.BuildServiceProvider(); //validateScopes: true
+            ServiceProvider = serviceCollection.BuildServiceProvider(validateScopes: true); //validateScopes: true
 
             var serviceScopeFactory = ServiceProvider.GetRequiredService<IServiceScopeFactory>();
 

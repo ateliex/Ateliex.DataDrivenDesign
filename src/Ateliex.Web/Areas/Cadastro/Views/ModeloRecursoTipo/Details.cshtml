@@ -1,0 +1,30 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo
+
+@{
+    ViewData["Title"] = $"Detalhar {Model.Id} - Tipo de Recurso de Modelo";
+
+    var parent = (string?)ViewData["Parent"];
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Tipo de Recurso de Modelo</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detalhar @Model.Id</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Detalhar Tipo de Recurso de Modelo</h1>
+
+    <div class="container">
+        <partial name="Item/_ModeloRecursoTipo" model="Model" />
+
+        <p>
+            <a asp-action="Edit" asp-route-id="@Model.Id" asp-route-parent="@parent" asp-route-from="Details">Editar<i class="bi bi-pencil"></i></a>
+            <a asp-action="Delete" asp-route-id="@Model.Id" asp-route-parent="@parent" asp-route-from="Details" class="link-danger">Excluir<i class="bi bi-trash"></i></a>
+        </p>
+
+        <partial name="_Details" model="Model" />
+    </div>
+</section>

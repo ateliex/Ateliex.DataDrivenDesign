@@ -31,10 +31,74 @@ dt {
 }
 
 dd {
-    padding-top: 10px;
+    padding-top: 11px;
+    padding-left: 25px !important;
+    margin-bottom: 7px !important;
 }
 
 th:first-child {
-    width: 10%;
+    width: 85px;
     white-space: nowrap;
+}
+
+td {
+    white-space: nowrap;
+}
+
+.col-form-label {
+    font-weight: bold;
+    background-color: #f8f9fa;
+    padding-top: 10px;
+    margin-top: -4px;
+}
+
+section {
+    padding-bottom: 16px;
+}
+
+    section > .container {
+        border-top: 1px solid #dee2e6;
+        border-left: 1px solid #dee2e6;
+        margin-bottom: 16px;
+    }
+
+        section > .container > p {
+            margin-top: 1rem;
+        }
+
+p > a > i {
+    padding-left: 5px;
+    padding-right: 10px;
+}
+
+th > a > i {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+p > button > i {
+    padding-right: 10px;
+}
+
+form > div.row {
+    margin-top: .25rem !important;
+}
+
+h7 {
+    background-color: #f8f9fa;
+    /*border-left: 1px solid #dee2e6;*/
+    padding: 10px;
+    width: 100%;
+    display: block;
+    margin-top: 16px;
+}
+
+.null {
+    border-top: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+footer {
+    padding-top: 16px;
 }

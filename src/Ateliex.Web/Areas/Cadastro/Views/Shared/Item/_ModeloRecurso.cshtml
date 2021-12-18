@@ -1,0 +1,56 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecurso
+
+@{
+    var parent = (string?)ViewData["Parent"];
+}
+
+<dl class="row">
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.ModeloCodigo)
+    </dt>
+    <dd class="col-sm-9">
+        <a asp-area="Cadastro" asp-controller="Modelo" asp-action="Details" asp-route-id="@Model.ModeloCodigo">
+            @Html.DisplayFor(model => model.Modelo.Nome)
+            <i class="bi bi-link-45deg"></i>
+        </a>
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Descricao)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Descricao)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.TipoId)
+    </dt>
+    <dd class="col-sm-9">
+        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Details" asp-route-id="@Model.TipoId">
+            @Html.DisplayFor(model => model.Tipo.Nome)
+            <i class="bi bi-link-45deg"></i>
+        </a>
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Custo)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Custo)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Unidades)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Unidades)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.CustoPorUnidade)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.CustoPorUnidade)
+    </dd>
+</dl>

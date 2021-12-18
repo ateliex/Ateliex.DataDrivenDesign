@@ -11,6 +11,9 @@ namespace System.ComponentModel
     /// </summary>
     public abstract class Entity : INotifyPropertyChanged, INotifyDataErrorInfo //, IDataErrorInfo
     {
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
+
         /// <summary>
         /// Sets the property.
         /// </summary>
@@ -56,16 +59,16 @@ namespace System.ComponentModel
 
             changed.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-            if (State == EntityState.Unchanged)
-            {
-                State = EntityState.Modified;
-            }
+            //if (State == EntityState.Unchanged)
+            //{
+            //    State = EntityState.Modified;
+            //}
 
             changed.Invoke(this, new PropertyChangedEventArgs("State"));
         }
 
         [NotMapped]
-        public EntityState State { get; internal protected set; }
+        //public EntityState State { get; internal protected set; }
 
         protected readonly Dictionary<string, IList<Exception>> validationErrors = new Dictionary<string, IList<Exception>>();
 

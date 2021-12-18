@@ -1,4 +1,5 @@
-﻿using Ateliex.Windows;
+﻿using Ateliex.Areas.Cadastro.Windows;
+using Ateliex.Areas.Comercial.Windows;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Ateliex.Extensions
@@ -9,11 +10,11 @@ namespace Ateliex.Extensions
         {
             services.AddTransient(typeof(MainWindow));
 
-            services.AddTransient(typeof(ModelosWindow));
+            services.AddTransient(typeof(ModeloWindow));
 
-            services.AddTransient(typeof(ConsultaDeModelosWindow));
+            services.AddTransient(typeof(ModeloConsultaWindow));
 
-            services.AddTransient(typeof(PlanosComerciaisWindow));
+            services.AddTransient(typeof(PlanoComercialWindow));
 
             return services;
         }

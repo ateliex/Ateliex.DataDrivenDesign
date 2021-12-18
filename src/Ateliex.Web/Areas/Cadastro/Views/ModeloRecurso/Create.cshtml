@@ -1,0 +1,37 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecurso
+
+@{
+    ViewData["Title"] = $"Criar - Recurso de Modelo";
+
+    var parent = (string?)ViewData["Parent"];
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Recurso de Modelo</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Criar (@Model.ModeloCodigo)</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Criar Recurso de Modelo</h1>
+
+    <form asp-action="Create" class="container">
+        @*<h5>Novo</h5>*@
+
+        <partial name="_Form" model="Model" />
+
+        <input type="hidden" asp-for="@parent" />
+
+        <p>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>Salvar</button>
+        </p>
+    </form>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

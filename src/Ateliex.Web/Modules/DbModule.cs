@@ -10,6 +10,9 @@ namespace Ateliex.Modules
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            services.AddDbContext<AteliexDbContext>(options =>
+                options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Ateliex.EntityFrameworkCore.SqlServer")));
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             //ServiceProvider = services.BuildServiceProvider();

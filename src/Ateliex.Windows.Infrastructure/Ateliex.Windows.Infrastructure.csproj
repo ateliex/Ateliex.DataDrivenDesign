@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Ateliex</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ateliex.EntityFrameworkCore.Sqlite\Ateliex.EntityFrameworkCore.Sqlite.csproj" />
+    <ProjectReference Include="..\Ateliex.EntityFrameworkCore\Ateliex.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\Ateliex.Services\Ateliex.Services.csproj" />
+  </ItemGroup>
+
+</Project>

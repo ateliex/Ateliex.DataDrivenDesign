@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo>
+
+@{
+    ViewData["Title"] = $"Cadastro - Tipo de Recurso de Modelo";
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item">Tipo de Recurso de Modelo</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Cadastro de Tipo de Recurso de Modelo</h1>
+
+    <div class="container">
+        <p>
+            <a asp-action="Create">Criar Novo<i class="bi bi-plus-circle"></i></a>
+        </p>
+
+        <partial name="List/_ModeloRecursoTipo" model="Model" />
+    </div>
+</section>

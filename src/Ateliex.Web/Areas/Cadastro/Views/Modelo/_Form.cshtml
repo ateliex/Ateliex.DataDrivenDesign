@@ -1,0 +1,18 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Modelo
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="row">
+    <label asp-for="Codigo" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <input asp-for="Codigo" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="Nome" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+</div>

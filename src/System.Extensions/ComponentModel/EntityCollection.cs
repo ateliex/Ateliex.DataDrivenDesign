@@ -30,7 +30,7 @@ namespace System.ComponentModel
 
         protected virtual void OnAddNew(T entity)
         {
-            entity.State = EntityState.New;
+            //entity.State = EntityState.New;
         }
 
         public virtual Task SaveChanges()
@@ -51,9 +51,9 @@ namespace System.ComponentModel
 
         protected virtual void OnRemoveItem(T entity)
         {
-            entity.State = EntityState.Deleted;
+            //entity.State = EntityState.Deleted;
 
-            deletedItems.Add(entity);
+            //deletedItems.Add(entity);
         }
 
         public IEnumerable<T> GetItemsBy(EntityState state)
@@ -66,7 +66,7 @@ namespace System.ComponentModel
             }
             else
             {
-                items = this.Where(p => p.State == state);
+                items = null; //this.Where(p => p.State == state);
             }
 
             return items;

@@ -9,7 +9,5 @@
         public string SingleName { get; set; }
 
         public string PluralName { get; set; }
-
-        public string[] ChildEntities { get; set; }
     }
 }

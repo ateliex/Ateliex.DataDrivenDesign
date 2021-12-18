@@ -1,0 +1,46 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecurso
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="row">
+    <label asp-for="Id" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="ModeloCodigo" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <select class="form-select" aria-label="Selecione" asp-for="ModeloCodigo" asp-items="ViewBag.ModeloCodigo"></select>
+        <span asp-validation-for="ModeloCodigo" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="Descricao" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Descricao" class="form-control" />
+        <span asp-validation-for="Descricao" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="TipoId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <select class="form-select" aria-label="Selecione" asp-for="TipoId" class="form-control" asp-items="ViewBag.TipoId"></select>
+        <span asp-validation-for="TipoId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="Custo" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <input asp-for="Custo" class="form-control" />
+        <span asp-validation-for="Custo" class="text-danger"></span>
+    </div>
+</div>
+<div class="row">
+    <label asp-for="Unidades" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <input asp-for="Unidades" class="form-control" />
+        <span asp-validation-for="Unidades" class="text-danger"></span>
+    </div>
+</div>

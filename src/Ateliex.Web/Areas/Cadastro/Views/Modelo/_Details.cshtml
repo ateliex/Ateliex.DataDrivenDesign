@@ -1,0 +1,27 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Modelo
+
+@{
+    var parent = "Modelo";
+
+    var viewData = new ViewDataDictionary(ViewData) { { "Parent", parent } };
+}
+
+<section>
+    <h2>Recursos</h2>
+
+    <div class="container">
+        <p>
+            <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Create" asp-route-modeloCodigo="@Model.Codigo">Criar Novo<i class="bi bi-plus-circle"></i></a>
+        </p>
+
+        <partial name="List/_ModeloRecurso" model="Model.Recursos" view-data=@viewData />
+
+        <section>
+            <h7>Não há mais detalhes de recursos</h7>
+        </section>
+    </div>
+</section>
+
+<section>
+    <h7>Não há mais detalhes de modelo</h7>
+</section>

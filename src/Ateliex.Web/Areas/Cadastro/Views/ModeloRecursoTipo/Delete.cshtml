@@ -1,0 +1,35 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoTipo
+
+@{
+    ViewData["Title"] = $"Excluir {Model.Id} - Tipo de Recurso de Modelo";
+
+    var parent = (string?)ViewData["Parent"];
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Tipo de Recurso de Modelo</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Excluir @Model.Id</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Excluir Tipo de Recurso de Modelo?</h1>
+
+    <form asp-action="Delete" class="container">
+        @*<h5>Tipo de Recurso de Modelo @Model.Id</h5>*@
+        
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <partial name="Item/_ModeloRecursoTipo" model="Model" />
+
+        <input type="hidden" asp-for="@parent" />
+
+        <input type="hidden" asp-for="Id" />
+
+        <p>
+            <button type="submit" class="btn btn-danger"><i class="bi bi-exclamation-triangle"></i>Confirmar Exclusão</button>
+        </p>
+    </form>
+</section>

@@ -1,0 +1,46 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecurso
+
+@{
+    ViewData["Title"] = $"Editar {Model.Id} - Recurso de Modelo";
+
+    var parent = (string?)ViewData["Parent"];
+    var from = (string?)ViewData["From"];
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a asp-area="Cadastro" asp-controller="Home" asp-action="Index">Cadastro</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">Recurso de Modelo</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Editar @Model.Id (@Model.ModeloCodigo)</li>
+    </ol>
+</nav>
+
+<section>
+    <h1>Editar Recurso de Modelo</h1>
+
+    <form asp-action="Edit" class="container">
+        @*<h5>Recurso de Modelo @Model.Id</h5>*@
+
+        <partial name="_Form" model="Model" />
+
+        <input type="hidden" asp-for="Id" />
+
+        <input type="hidden" asp-for="ModeloCodigo" />
+        
+        <input type="hidden" asp-for="RowVersion" />
+
+        <input type="hidden" asp-for="@parent" />
+        
+        <input type="hidden" asp-for="@from" />
+
+        <p>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>Salvar</button>
+        </p>
+    </form>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
