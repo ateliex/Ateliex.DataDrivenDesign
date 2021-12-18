@@ -8,27 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Ateliex.Areas.Cadastro.Models;
 using Ateliex.Data;
 using Ateliex.Extensions;
+using Ateliex.Areas.Cadastro.Services;
 
 namespace Ateliex.Areas.Cadastro.Controllers
 {
     [Area("Cadastro")]
     //[Route("{controller}")]
-    public class ModelosController : Controller
+    public class ModeloController : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ModeloService _modeloService;
 
-        public ModelosController(ApplicationDbContext context)
+        public ModeloController(ModeloService modeloService)
         {
-            _db = context;
+            _modeloService = modeloService;
         }
 
-        // GET: Cadastro/Modelos
+        // GET: Cadastro/Modelo
         public async Task<IActionResult> Index()
         {
-            return View(await _db.Modelos.ToListAsync());
+            return View(await _modeloService.ObterListaModelo());
         }
 
-        // GET: Cadastro/Modelos/Detalhar/5
+        // GET: Cadastro/Modelo/Detalhar/5
         public async Task<IActionResult> Detalhar(int? id)
         {
             if (id == null)
@@ -36,10 +37,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 return NotFound();
             }
 
-            var modelo = await _db.Modelos
-                .Include(m => m.Recursos)
-                .ThenInclude(r => r.Tipo)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Modelo modelo = await _modeloService.ObterModeloDetalhado(id);
 
             if (modelo == null)
             {
@@ -49,7 +47,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Criar
+        // GET: Cadastro/Modelo/Criar
         public IActionResult Criar()
         {
             var modelo = new Modelo();
@@ -57,7 +55,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Criar
+        // POST: Cadastro/Modelo/Criar
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -66,14 +64,14 @@ namespace Ateliex.Areas.Cadastro.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Add(modelo);
-                await _db.SaveChangesAsync();
+                await _modeloService.Adicionar(modelo);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Editar/5
+        // GET: Cadastro/Modelo/Editar/5
         public async Task<IActionResult> Editar(int? id)
         {
             Modelo modelo;
@@ -84,7 +82,8 @@ namespace Ateliex.Areas.Cadastro.Controllers
             }
             else
             {
-                modelo = await _db.Modelos.FindAsync(id);
+                modelo = await _modeloService.ObterModelo(id);
+
                 if (modelo == null)
                 {
                     return NotFound();
@@ -94,7 +93,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Editar/5
+        // POST: Cadastro/Modelo/Editar/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -112,19 +111,18 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 {
                     if (id == null)
                     {
-                        _db.Add(modelo);
-                        await _db.SaveChangesAsync();
+                        await _modeloService.Adicionar(modelo);
+
                         return RedirectToAction(nameof(Index));
                     }
                     else
                     {
-                        _db.Update(modelo);
-                        await _db.SaveChangesAsync();
+                        await _modeloService.Atualizar(modelo);
                     }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModeloExists(modelo.Id))
+                    if (!_modeloService.ModeloExists(modelo.Id))
                     {
                         return NotFound();
                     }
@@ -138,7 +136,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // GET: Cadastro/Modelos/Excluir/5
+        // GET: Cadastro/Modelo/Excluir/5
         public async Task<IActionResult> Excluir(int? id)
         {
             if (id == null)
@@ -146,8 +144,7 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 return NotFound();
             }
 
-            var modelo = await _db.Modelos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            Modelo modelo = await _modeloService.ObterModeloDetalhado(id);
 
             if (modelo == null)
             {
@@ -157,23 +154,16 @@ namespace Ateliex.Areas.Cadastro.Controllers
             return View(modelo);
         }
 
-        // POST: Cadastro/Modelos/Excluir/5
+        // POST: Cadastro/Modelo/Excluir/5
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarExclusao(int id)
         {
-            var modelo = await _db.Modelos.FindAsync(id);
+            Modelo modelo = await _modeloService.ObterModelo(id);
 
-            _db.Modelos.Remove(modelo);
-
-            await _db.SaveChangesAsync();
+            await _modeloService.Excluir(modelo);
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ModeloExists(int id)
-        {
-            return _db.Modelos.Any(e => e.Id == id);
         }
     }
 }

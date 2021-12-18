@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Ateliex.Data;
 using Ateliex.Modules;
+using Ateliex.Areas.Cadastro.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,12 +19,17 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddControllers()
 //    .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
+builder.Services.AddScoped<ModeloService>();
+builder.Services.AddScoped<ModeloRecursoTipoService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+
+    //app.UseBrowserLink();
 }
 else
 {

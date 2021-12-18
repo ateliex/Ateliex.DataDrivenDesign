@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ateliex.Areas.Cadastro.Models
 {
+    [DataInfo(AreaName = "Cadastro", MetaName = "ModeloRecursoAnexo", SingleName = "Anexo de Recurso de Modelo", PluralName = "Anexos de Recurso de Modelo")]
     public class ModeloRecursoAnexo : DataEntity
     {
         public int RecursoId { get; set; }

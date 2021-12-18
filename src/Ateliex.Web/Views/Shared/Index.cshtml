@@ -3,22 +3,23 @@
 @{
     var info = @Model.GetInfo();
 
-    ViewData["Title"] = $"{info.PluralName}";
+    ViewData["Title"] = $"Consultar - {info.SingleName}";
 }
-
-<h1>@info.PluralName</h1>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a>@info.AreaName</a></li>
-        <li class="breadcrumb-item active" aria-current="page"><a>@info.PluralName</a></li>
+        <li class="breadcrumb-item">@info.SingleName</li>
+        <li class="breadcrumb-item active" aria-current="page">Consultar</li>
     </ol>
 </nav>
+
+<h1>Consultar @info.SingleName</h1>
 
 <p>
     <a asp-action="Criar">Criar Novo</a>
 </p>
 
 <table class="table table-striped table-hover">
-    <partial name="_@info.MetaName" model="Model" />
+    <partial name="List/_@info.MetaName" model="Model" />
 </table>

@@ -38,3 +38,7 @@ th:first-child {
     width: 10%;
     white-space: nowrap;
 }
+
+td {
+    white-space: nowrap;    
+}

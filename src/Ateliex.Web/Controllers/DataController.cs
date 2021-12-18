@@ -7,26 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Ateliex.Areas.Cadastro.Models;
 using Ateliex.Data;
+using Ateliex.Extensions;
+using System.ComponentModel;
 
-namespace Ateliex.Areas.Cadastro.Controllers
+namespace Ateliex.Controllers
 {
-    [Area("Cadastro")]
-    public class ModeloRecursoTiposController : Controller
+    public abstract class DataController<TDataEntity> : Controller
+        where TDataEntity : DataEntity
     {
         private readonly ApplicationDbContext _db;
 
-        public ModeloRecursoTiposController(ApplicationDbContext db)
+        public DataController(ApplicationDbContext db)
         {
             _db = db;
         }
 
-        // GET: Cadastro/ModeloRecursoTipos
+        // GET: TDataEntity
         public async Task<IActionResult> Index()
         {
-            return View(await _db.ModeloRecursoTipos.ToListAsync());
+            return View(await _db.ModeloSet.ToListAsync());
         }
 
-        // GET: Cadastro/ModeloRecursoTipos/Detalhar/5
+        protected virtual IQueryable<TDataEntity> Query()
+        {
+            throw new NotImplementedException();
+        }
+
+        // GET: TDataEntity/Detalhar/5
         public async Task<IActionResult> Detalhar(int? id)
         {
             if (id == null)
@@ -34,64 +41,72 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 return NotFound();
             }
 
-            var modeloRecursoTipo = await _db.ModeloRecursoTipos
+            var modelo = await _db.ModeloSet
+                .Include(m => m.Recursos)
+                .ThenInclude(r => r.Tipo)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (modeloRecursoTipo == null)
+
+            if (modelo == null)
             {
                 return NotFound();
             }
 
-            return View(modeloRecursoTipo);
+            return View(modelo);
         }
 
-        // GET: Cadastro/ModeloRecursoTipos/Criar
+        // GET: TDataEntity/Criar
         public IActionResult Criar()
         {
-            var modeloRecursoTipo = new ModeloRecursoTipo();
+            var modelo = new Modelo();
 
-            return View(modeloRecursoTipo);
+            return View(modelo);
         }
 
-        // POST: Cadastro/ModeloRecursoTipos/Criar
+        // POST: TDataEntity/Criar
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Criar([Bind("Nome,Id")] ModeloRecursoTipo modeloRecursoTipo)
+        public async Task<IActionResult> Criar([Bind("Id,Nome,State")] Modelo modelo)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(modeloRecursoTipo);
+                _db.Add(modelo);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(modeloRecursoTipo);
+            return View(modelo);
         }
 
-        // GET: Cadastro/ModeloRecursoTipos/Editar/5
+        // GET: TDataEntity/Editar/5
         public async Task<IActionResult> Editar(int? id)
         {
+            Modelo modelo;
+
             if (id == null)
             {
                 return NotFound();
             }
-
-            var modeloRecursoTipo = await _db.ModeloRecursoTipos.FindAsync(id);
-            if (modeloRecursoTipo == null)
+            else
             {
-                return NotFound();
+                modelo = await _db.ModeloSet.FindAsync(id);
+                if (modelo == null)
+                {
+                    return NotFound();
+                }
             }
-            return View(modeloRecursoTipo);
+
+            return View(modelo);
         }
 
-        // POST: Cadastro/ModeloRecursoTipos/Editar/5
+        // POST: TDataEntity/Editar/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Editar(int id, [Bind("Nome,Id")] ModeloRecursoTipo modeloRecursoTipo)
+        public async Task<IActionResult> Editar(int? id, [Bind("Id,Nome,State")] Modelo modelo)
         {
-            if (id != modeloRecursoTipo.Id)
+            if (id != modelo.Id)
             {
                 return NotFound();
             }
@@ -100,12 +115,21 @@ namespace Ateliex.Areas.Cadastro.Controllers
             {
                 try
                 {
-                    _db.Update(modeloRecursoTipo);
-                    await _db.SaveChangesAsync();
+                    if (id == null)
+                    {
+                        _db.Add(modelo);
+                        await _db.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        _db.Update(modelo);
+                        await _db.SaveChangesAsync();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ModeloRecursoTipoExists(modeloRecursoTipo.Id))
+                    if (!ModeloExists(modelo.Id))
                     {
                         return NotFound();
                     }
@@ -116,10 +140,10 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(modeloRecursoTipo);
+            return View(modelo);
         }
 
-        // GET: Cadastro/ModeloRecursoTipos/Excluir/5
+        // GET: TDataEntity/Excluir/5
         public async Task<IActionResult> Excluir(int? id)
         {
             if (id == null)
@@ -127,30 +151,34 @@ namespace Ateliex.Areas.Cadastro.Controllers
                 return NotFound();
             }
 
-            var modeloRecursoTipo = await _db.ModeloRecursoTipos
+            var modelo = await _db.ModeloSet
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (modeloRecursoTipo == null)
+
+            if (modelo == null)
             {
                 return NotFound();
             }
 
-            return View(modeloRecursoTipo);
+            return View(modelo);
         }
 
-        // POST: Cadastro/ModeloRecursoTipos/Excluir/5
+        // POST: TDataEntity/Excluir/5
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ConfirmarExclusao(int id)
         {
-            var modeloRecursoTipo = await _db.ModeloRecursoTipos.FindAsync(id);
-            _db.ModeloRecursoTipos.Remove(modeloRecursoTipo);
+            var modelo = await _db.ModeloSet.FindAsync(id);
+
+            _db.ModeloSet.Remove(modelo);
+
             await _db.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ModeloRecursoTipoExists(int id)
+        private bool ModeloExists(int id)
         {
-            return _db.ModeloRecursoTipos.Any(e => e.Id == id);
+            return _db.ModeloSet.Any(e => e.Id == id);
         }
     }
 }

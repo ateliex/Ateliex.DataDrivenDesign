@@ -7,17 +7,17 @@ namespace Ateliex.Data;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    public DbSet<Modelo> Modelos { get; set; }
+    public DbSet<Modelo> ModeloSet { get; set; }
 
-    public DbSet<ModeloRecurso> ModeloRecursos { get; set; }
+    public DbSet<ModeloRecurso> ModeloRecursoSet { get; set; }
 
-    public DbSet<ModeloRecursoTipo> ModeloRecursoTipos { get; set; }
+    public DbSet<ModeloRecursoTipo> ModeloRecursoTipoSet { get; set; }
 
-    public DbSet<ModeloRecursoTipoDescricao> ModeloRecursoTipoDesricoes { get; set; }
+    public DbSet<ModeloRecursoTipoDescricao> ModeloRecursoTipoDesricaoSet { get; set; }
 
-    public DbSet<ModeloRecursoObservacao> ModeloRecursoObservacoes { get; set; }
+    public DbSet<ModeloRecursoObservacao> ModeloRecursoObservacaoSet { get; set; }
 
-    public DbSet<ModeloRecursoAnexo> ModeloRecursoAnexos { get; set; }
+    public DbSet<ModeloRecursoAnexo> ModeloRecursoAnexoSet { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
@@ -51,10 +51,10 @@ public class ApplicationDbContext : IdentityDbContext
             .ToTable("UserTokens", "identity");
 
         builder.Entity<Modelo>()
-            .ToTable("Modelos", "cadastro");
+            .ToTable("Modelo", "cadastro");
 
         builder.Entity<ModeloRecurso>()
-            .ToTable("ModeloRecursos", "cadastro");
+            .ToTable("ModeloRecurso", "cadastro");
 
         builder.Entity<ModeloRecurso>()
             .HasOne(a => a.Observacao)
@@ -66,7 +66,7 @@ public class ApplicationDbContext : IdentityDbContext
             .HasPrecision(14, 2);
 
         builder.Entity<ModeloRecursoTipo>()
-            .ToTable("ModeloRecursoTipos", "cadastro");
+            .ToTable("ModeloRecursoTipo", "cadastro");
 
         builder.Entity<ModeloRecursoTipo>()
             .HasOne(a => a.Descricao)
@@ -74,13 +74,13 @@ public class ApplicationDbContext : IdentityDbContext
             .HasForeignKey<ModeloRecursoTipoDescricao>(b => b.TipoId);
 
         builder.Entity<ModeloRecursoTipoDescricao>()
-            .ToTable("ModeloRecursoTipoDescricoes", "cadastro");
+            .ToTable("ModeloRecursoTipoDescricao", "cadastro");
 
         builder.Entity<ModeloRecursoObservacao>()
-            .ToTable("ModeloRecursoObservacoes", "cadastro");
+            .ToTable("ModeloRecursoObservacao", "cadastro");
 
         builder.Entity<ModeloRecursoAnexo>()
-            .ToTable("ModeloRecursoAnexos", "cadastro");
+            .ToTable("ModeloRecursoAnexo", "cadastro");
 
         // Seed.
 

@@ -1,0 +1,28 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoTipoDescricao
+
+<dl class="row">
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Tipo)
+    </dt>
+    <dd class="col-sm-9">
+        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Detalhar" asp-route-id="@Model.TipoId">
+            @Html.DisplayFor(model => model.Tipo.Nome)
+            <i class="bi bi-link-45deg"></i>
+        </a>
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Texto)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Texto)
+        <a asp-area="Cadastro" asp-controller="ModeloRecursoTipoDescricao" asp-action="Detalhar" asp-route-id="@Model.Id">
+            <i class="bi bi-link-45deg"></i>
+        </a>
+    </dd>
+</dl>

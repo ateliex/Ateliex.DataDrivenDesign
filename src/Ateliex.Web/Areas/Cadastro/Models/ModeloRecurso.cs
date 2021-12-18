@@ -5,17 +5,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Ateliex.Areas.Cadastro.Models
 {
-    [DataInfo(AreaName = "Cadastro", MetaName = "ModeloRecursos", SingleName = "Modelo Recurso", PluralName = "Modelo Recursos", ChildEntities = new string[] { })]
+    [DataInfo(AreaName = "Cadastro", MetaName = "ModeloRecurso", SingleName = "Recurso de Modelo", PluralName = "Recursos de Modelo")]
     public class ModeloRecurso : DataEntity
     {
         public int ModeloId { get; set; }
 
-        public virtual Modelo Modelo { get; set; }
+        public virtual Modelo? Modelo { get; set; }
 
         public int TipoId { get; set; }
 
         [DisplayName("Tipo")]
-        public ModeloRecursoTipo Tipo { get; set; }
+        public ModeloRecursoTipo? Tipo { get; set; }
 
         [DisplayName("Descrição")]
         [MaxLength(255)]
@@ -45,7 +45,7 @@ namespace Ateliex.Areas.Cadastro.Models
         }
 
         [DisplayName("Observação")]
-        public ModeloRecursoObservacao Observacao { get; set; }
+        public ModeloRecursoObservacao? Observacao { get; set; }
 
         public virtual ObservableCollection<ModeloRecursoAnexo> Anexos { get; set; }
 

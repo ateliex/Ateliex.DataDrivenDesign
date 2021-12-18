@@ -3,28 +3,28 @@
 @{
     var info = Model.GetInfo();
 
-    ViewData["Title"] = $"Novo - {info.PluralName}";
+    ViewData["Title"] = $"Criar - {info.SingleName}";
 }
-
-<h1>Criar @info.SingleName</h1>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a>@info.AreaName</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index">@info.PluralName</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Criar Novo</li>
+        <li class="breadcrumb-item"><a asp-action="Index">@info.SingleName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Criar</li>
     </ol>
 </nav>
 
+<h1>Criar @info.SingleName</h1>
+
 <div class="container">
-    <h5>Novo</h5>
+    @*<h5>Novo</h5>*@
 
-    <hr />
-
-    <form asp-action="Editar">
+    <form asp-action="Criar">
         <partial name="_Form" model="Model" />
 
-        <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>&nbsp;Salvar</button>
+        <p>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i>&nbsp;Salvar</button>
+        </p>
     </form>
 </div>
 

@@ -1,0 +1,64 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecurso
+
+@{
+    var info = Model.GetInfo();
+
+    ViewData["Title"] = $"Detalhar {Model.Id} - {info.SingleName}";
+
+    ViewData["recursoId"] = Model.Id;
+
+    int? modeloId = (int?)ViewData["modeloId"];
+
+    int? tipoId = (int?)ViewData["tipoId"];
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>@info.AreaName</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">@info.SingleName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detalhar @Model.Id</li>
+    </ol>
+</nav>
+
+<h1>Detalhar Modelo Recurso</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <partial name="Data/_@Model.GetTypeName()" model="Model" />
+
+            <p>
+                <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Editar" asp-route-id="@Model.Id">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Excluir" asp-route-id="@Model.Id">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+            </p>
+        </div>
+        <div class="col">
+            @if (modeloId.HasValue)
+            {
+                <h2>Modelo</h2>
+
+                <partial name="Data/_Modelo" model="Model.Modelo" />
+            }
+            else if (tipoId.HasValue)
+            {
+                <h2>Tipo</h2>
+
+                <partial name="Data/_ModeloRecursoTipo" model="Model.Tipo" />
+            }
+        </div>
+    </div>
+    <h2>Observação</h2>
+
+    <div class="container">
+        @if (Model.Observacao == null)
+        {
+            <h7>Não há observação deste item</h7>
+        }
+        else
+        {
+            <partial name="Data/_ModeloRecursoObservacao" model="Model.Observacao" view-data="ViewData" />
+        }
+    </div>
+
+    <h7>Não há mais detalhes deste item</h7>
+</div>

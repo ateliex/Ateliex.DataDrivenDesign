@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecursoAnexo>
+
+<thead class="table-light">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arquivo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recurso)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Recurso.Modelo)
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoAnexo" asp-action="Detalhar" asp-route-id="@item.Id"><i class="bi bi-link-45deg"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoAnexo" asp-action="Editar" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoAnexo" asp-action="Excluir" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Id)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Arquivo)
+            </td>
+            <td>
+                <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@item.RecursoId">
+                    @Html.DisplayFor(modelItem => item.Recurso.Descricao)
+                    <i class="bi bi-link-45deg"></i>
+                </a>
+            </td>
+            <td>
+                <a asp-area="Cadastro" asp-controller="Modelo" asp-action="Detalhar" asp-route-id="@item.Recurso.ModeloId">
+                    @Html.DisplayFor(modelItem => item.Recurso.Modelo.Nome)
+                    <i class="bi bi-link-45deg"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</tbody>

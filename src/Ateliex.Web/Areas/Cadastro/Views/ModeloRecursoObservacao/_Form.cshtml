@@ -1,0 +1,24 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoObservacao
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="row mb-3">
+    <label asp-for="Id" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <input asp-for="Id" class="form-control" readonly="readonly" />
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="RecursoId" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-3">
+        <select class="form-select" aria-label="Selecione" asp-for="RecursoId" asp-items="ViewBag.RecursoId"></select>
+        <span asp-validation-for="RecursoId" class="text-danger"></span>
+    </div>
+</div>
+<div class="row mb-3">
+    <label asp-for="Texto" class="col-sm-3 col-form-label"></label>
+    <div class="col-sm-9">
+        <input asp-for="Texto" class="form-control" />
+        <span asp-validation-for="Texto" class="text-danger"></span>
+    </div>
+</div>

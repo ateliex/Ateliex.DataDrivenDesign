@@ -1,4 +1,4 @@
-﻿@model System.ComponentModel.DataEntity
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoObservacao
 
 @{
     var info = Model.GetInfo();
@@ -17,14 +17,18 @@
 <h1>Detalhar @info.SingleName</h1>
 
 <div class="container">
-    <h5>@info.SingleName @Model.Id</h5>
-
     <partial name="Data/_@Model.GetTypeName()" model="Model" />
 
     <p>
-        <a asp-action="Editar" asp-route-id="@Model.Id">Editar&nbsp;<i class="bi bi-pencil"></i></a>
-        <a asp-action="Excluir" asp-route-id="@Model.Id">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+        <a asp-area="Cadastro" asp-controller="ModeloRecursoObservacao" asp-action="Editar" asp-route-id="@Model.Id">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+        <a asp-area="Cadastro" asp-controller="ModeloRecursoObservacao" asp-action="Excluir" asp-route-id="@Model.Id">Excluir&nbsp;<i class="bi bi-trash"></i></a>
     </p>
+
+    <h2>Recurso de Modelo</h2>
+
+    <div class="container">
+        <partial name="Data/_ModeloRecurso" model="Model.Recurso" />
+    </div>
 
     <h7>Não há mais detalhes deste item</h7>
 </div>

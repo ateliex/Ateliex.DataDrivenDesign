@@ -1,0 +1,42 @@
+﻿@model Ateliex.Areas.Cadastro.Models.Modelo
+
+@{
+    var info = Model.GetInfo();
+
+    ViewData["Title"] = $"Detalhar {Model.Id} - {info.SingleName}";
+
+    ViewData["modeloId"] = Model.Id;
+}
+
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a>@info.AreaName</a></li>
+        <li class="breadcrumb-item"><a asp-action="Index">@info.SingleName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Detalhar @Model.Id</li>
+    </ol>
+</nav>
+
+<h1>Detalhar @info.SingleName</h1>
+
+<div class="container">
+    <partial name="Data/_@Model.GetTypeName()" model="Model" />
+
+    <p>
+        <a asp-area="Cadastro" asp-controller="Modelo" asp-action="Editar" asp-route-id="@Model.Id">Editar&nbsp;<i class="bi bi-pencil"></i></a>&nbsp;
+        <a asp-area="Cadastro" asp-controller="Modelo" asp-action="Excluir" asp-route-id="@Model.Id">Excluir&nbsp;<i class="bi bi-trash"></i></a>
+    </p>
+
+    <h2>Recursos</h2>
+
+    <div class="container">
+        <p>
+            <a asp-controller="ModeloRecurso" asp-action="Criar" asp-route-modeloId="@Model.Id">Criar Novo<i class="bi bi-link-45deg"></i></a>
+        </p>
+
+        <table class="table table-striped table-hover">
+            <partial name="List/_ModeloRecurso" model="Model.Recursos" view-data="ViewData" />
+        </table>
+    </div>
+
+    <h7>Não há mais detalhes deste item</h7>
+</div>

@@ -1,0 +1,41 @@
+﻿@model Ateliex.Areas.Cadastro.Models.ModeloRecursoObservacao
+
+@{
+    int? recursoId = (int?)ViewData["recursoId"];
+}
+
+<dl class="row">
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Texto)
+    </dt>
+    <dd class="col-sm-9">
+        @Html.DisplayFor(model => model.Texto)
+    </dd>
+    @if (recursoId.HasValue == false)
+    {
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Recurso)
+        </dt>
+        <dd class="col-sm-9">
+            <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@Model.RecursoId">
+                @Html.DisplayFor(model => model.Recurso.Descricao)
+                <i class="bi bi-link-45deg"></i>
+            </a>
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Recurso.Modelo)
+        </dt>
+        <dd class="col-sm-9">
+            <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@Model.Recurso.ModeloId">
+                @Html.DisplayFor(model => model.Recurso.Modelo.Nome)
+                <i class="bi bi-link-45deg"></i>
+            </a>
+        </dd>
+    }
+</dl>

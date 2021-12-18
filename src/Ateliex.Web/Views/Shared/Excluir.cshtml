@@ -3,25 +3,23 @@
 @{
     var info = Model.GetInfo();
 
-    ViewData["Title"] = $"Exclusão - {Model.Id} - {info.PluralName}";
+    ViewData["Title"] = $"Excluir {Model.Id} - {info.SingleName}";
 }
-
-<h1>Excluir @info.SingleName?</h1>
 
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a>@info.AreaName</a></li>
-        <li class="breadcrumb-item"><a asp-action="Index">@info.PluralName</a></li>
-        <li class="breadcrumb-item active" aria-current="page">@Model.Id</li>
+        <li class="breadcrumb-item"><a asp-action="Index">@info.SingleName</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Excluir @Model.Id</li>
     </ol>
 </nav>
 
+<h1>Excluir @info.SingleName?</h1>
+
 <div class="container">
-    <h5>@info.SingleName @Model.Id</h5>
+    @*<h5>@info.SingleName @Model.Id</h5>*@
 
-    <hr />
-
-    <partial name="_@Model.GetTypeName()" model="Model" />
+    <partial name="Data/_@Model.GetTypeName()" model="Model" />
 
     <form asp-action="Excluir">
         <button type="submit" class="btn btn-danger">

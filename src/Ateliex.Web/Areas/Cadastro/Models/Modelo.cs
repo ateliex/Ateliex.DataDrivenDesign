@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Ateliex.Areas.Cadastro.Models
 {
-    [DataInfo(AreaName = "Cadastro", MetaName = "Modelos", SingleName = "Modelo", PluralName = "Modelos", ChildEntities = new[] { "Recursos" })]
+    [DataInfo(AreaName = "Cadastro", MetaName = "Modelo", SingleName = "Modelo", PluralName = "Modelos")]
     public class Modelo : DataEntity
     {
         [DisplayName("Nome")]
@@ -33,7 +33,7 @@ namespace Ateliex.Areas.Cadastro.Models
 
         public Modelo()
         {
-            Id = -1;
+            //Id = -1;
 
             Nome = "Modelo #";
 

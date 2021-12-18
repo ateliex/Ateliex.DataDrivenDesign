@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecurso>
+
+@{
+    int? modeloId = (int?)ViewData["modeloId"];
+
+    int? tipoId = (int?)ViewData["tipoId"];
+}
+
+<thead class="table-light">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Custo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unidades)
+        </th>
+        @if (tipoId.HasValue == false)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Tipo)
+            </th>
+        }
+        @if (modeloId.HasValue == false)
+        {
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+        }
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @if (modeloId.HasValue)
+                {
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@item.Id" asp-route-modeloId="@item.ModeloId"><i class="bi bi-link-45deg"></i></a>                    
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Editar" asp-route-id="@item.Id" asp-route-modeloId="@item.ModeloId"><i class="bi bi-pencil"></i></a>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Excluir" asp-route-id="@item.Id" asp-route-modeloId="@item.ModeloId"><i class="bi bi-trash"></i></a>
+                }
+                else if (tipoId.HasValue)
+                {
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@item.Id" asp-route-tipoId="@item.TipoId"><i class="bi bi-link-45deg"></i></a>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Editar" asp-route-id="@item.Id" asp-route-tipoId="@item.TipoId"><i class="bi bi-pencil"></i></a>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Excluir" asp-route-id="@item.Id" asp-route-tipoId="@item.TipoId"><i class="bi bi-trash"></i></a>
+                }
+                else
+                {
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Detalhar" asp-route-id="@item.Id"><i class="bi bi-link-45deg"></i></a>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Editar" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecurso" asp-action="Excluir" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+                }
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Id)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Custo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Unidades)
+            </td>
+            @if (tipoId.HasValue == false)
+            {
+                <td>
+                    <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Detalhar" asp-route-id="@item.TipoId">
+                        @Html.DisplayFor(modelItem => item.Tipo.Nome)
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </td>
+            }
+            @if (modeloId.HasValue == false)
+            {
+                <td>
+                    <a asp-area="Cadastro" asp-controller="Modelo" asp-action="Detalhar" asp-route-id="@item.ModeloId">
+                        @Html.DisplayFor(modelItem => item.Modelo.Nome)
+                        <i class="bi bi-link-45deg"></i>
+                    </a>
+                </td>
+            }
+        </tr>
+    }
+</tbody>

@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Ateliex.Areas.Cadastro.Models.ModeloRecursoTipoDescricao>
+
+<thead class="table-light">
+    <tr>
+        <th>#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Texto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipoDescricao" asp-action="Detalhar" asp-route-id="@item.Id"><i class="bi bi-link-45deg"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipoDescricao" asp-action="Editar" asp-route-id="@item.Id"><i class="bi bi-pencil"></i></a>&nbsp;
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipoDescricao" asp-action="Excluir" asp-route-id="@item.Id"><i class="bi bi-trash"></i></a>
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Id)
+            </th>
+            <td class="text-truncate" style="max-width:600px">
+                @Html.DisplayFor(modelItem => item.Texto)
+            </td>
+            <td>
+                <a asp-area="Cadastro" asp-controller="ModeloRecursoTipo" asp-action="Detalhar" asp-route-id="@item.TipoId">
+                    @Html.DisplayFor(modelItem => item.Tipo.Nome)
+                    <i class="bi bi-link-45deg"></i>
+                </a>
+            </td>
+        </tr>
+    }
+</tbody>
